@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="csrf-token" content={csrf_token_value()}>
+    <%= live_title_tag assigns[:page_title] || "Sapients" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+  </head>
+  <body class="p-7 bg-yellow-fellow text-gray-900">
+    <%= render "nav.html", logo: Routes.static_path(@conn, "/images/sapients.png") %>
+    <div>
+      <%= @inner_content %>
+      <nav class="mt-32 pt-5 border-t">
+        <%= render "_user_menu.html", assigns %>
+      </nav>
+    </div>
+  </body>
+</html>
