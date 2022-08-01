@@ -9,7 +9,9 @@
     <p>Latin words, consectetur, from a Lorem Ipsum passage, and <span class="underline decoration-2 decoration-blue-clue">going through the cites</span> of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of “</p>
   </div>
   <%= for user <- @users do %>
-      <%= render "entity.html", arrow: Routes.static_path(@conn, "/images/arrow-action.svg"), posts: posts(user), user: user, userlink: Routes.page_path(@conn, :show, user.id) %>
+      <%= if number_of_posts(user) > 3 do %>
+        <%= render "entity.html", arrow: Routes.static_path(@conn, "/images/arrow-action.svg"), links: links(user), posts: posts(user), user: user, userlink: Routes.page_path(@conn, :show, user.id) %>
+      <% end %>
   <% end %>
 </div>
 

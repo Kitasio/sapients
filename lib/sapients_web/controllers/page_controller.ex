@@ -5,7 +5,7 @@ defmodule SapientsWeb.PageController do
   alias Sapients.Media
 
   def index(conn, _params) do
-    users = Accounts.list_users()
+    users = Accounts.list_users_for_index()
     render(conn, "index.html", users: users)
   end
 

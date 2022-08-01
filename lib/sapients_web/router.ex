@@ -21,7 +21,7 @@ defmodule SapientsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/:id", PageController, :show
+    get "/page/:id", PageController, :show
   end
 
   # Other scopes may use custom stacks.

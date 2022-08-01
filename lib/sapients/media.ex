@@ -110,10 +110,27 @@ defmodule Sapients.Media do
     |> Repo.all()
   end
 
+  def list_user_posts_limited(%Accounts.User{} = user, amount) do
+    Post
+    |> user_posts_query(user)
+    |> limit_posts_query(amount)
+    |> Repo.all()
+  end
+
+  def user_posts_amount(%Accounts.User{} = user) do
+    Post
+    |> user_posts_query(user)
+    |> Repo.aggregate(:count)
+  end
+
   def get_user_post!(%Accounts.User{} = user, id) do
     Post
     |> user_posts_query(user)
     |> Repo.get!(id)
+  end
+
+  defp limit_posts_query(query, amount) do
+    from(p in query, limit: ^amount)
   end
 
   defp user_posts_query(query, %Accounts.User{id: user_id}) do

@@ -60,7 +60,7 @@ defmodule Sapients.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
-  def list_users() do
+  def list_users_for_index() do
     User
     |> list_not_admins_query()
     |> Repo.all()
@@ -69,7 +69,7 @@ defmodule Sapients.Accounts do
   defp list_not_admins_query(query) do
     from(u in query, where: u.is_admin == false)
   end
-
+  
   ## User registration
 
   @doc """
