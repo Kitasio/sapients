@@ -22,6 +22,7 @@ defmodule SapientsWeb.Router do
 
     get "/", PageController, :index
     get "/page/:id", PageController, :show
+    get "/contact", ContactController, :index
   end
 
   # Other scopes may use custom stacks.
