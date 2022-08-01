@@ -11,11 +11,7 @@
   </head>
   <body class="p-7 bg-yellow-fellow text-gray-900">
     <%= render "nav.html", logo: Routes.static_path(@conn, "/images/sapients.png") %>
-    <div>
-      <%= @inner_content %>
-      <nav class="mt-32 pt-5 border-t">
-        <%= render "_user_menu.html", assigns %>
-      </nav>
-    </div>
+    <%= @inner_content %>
+    <%= render "footer.html", logo: Routes.static_path(@conn, "/images/sapients.png") %>
   </body>
 </html>
