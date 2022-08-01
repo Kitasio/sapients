@@ -9,9 +9,15 @@
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
-  <body class="p-7 bg-yellow-fellow text-gray-900">
-    <%= render "nav.html", logo: Routes.static_path(@conn, "/images/sapients.png") %>
-    <%= @inner_content %>
-    <%= render "footer.html", logo: Routes.static_path(@conn, "/images/sapients.png") %>
+  <body>
+    <main class="flex flex-col justify-between min-h-screen p-7 bg-yellow-fellow text-gray-900">
+      <div>
+        <%= render "nav.html", logo: Routes.static_path(@conn, "/images/sapients.png") %>
+        <%= @inner_content %>
+      </div>
+      <div>
+        <%= render "footer.html", logo: Routes.static_path(@conn, "/images/sapients.png") %>
+      </div>
+    </main>
   </body>
 </html>
