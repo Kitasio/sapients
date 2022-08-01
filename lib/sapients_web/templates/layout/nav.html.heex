@@ -3,7 +3,7 @@
         <img class="w-28" src={@logo} alt="">
     </a>
     <div class="flex text-sm font-bold gap-x-6">
-        <a class="hover:text-blue-clue transition" href="/about">About</a>
-        <a class="hover:text-blue-clue transition" href="/contact">Contact</a>
+        <a class={active_class(@conn, "/about")} href="/about">About</a>
+        <a class={active_class(@conn, "/contact")} href="/contact">Contact</a>
     </div>
 </nav>
