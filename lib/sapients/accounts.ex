@@ -96,6 +96,10 @@ defmodule Sapients.Accounts do
     |> Repo.insert()
   end
 
+  def delete_user(%User{} = user) do
+    Repo.delete(user)
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
 

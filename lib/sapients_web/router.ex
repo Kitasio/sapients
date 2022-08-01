@@ -65,6 +65,7 @@ defmodule SapientsWeb.Router do
     pipe_through [:browser, :require_authenticated_admin]
 
     get "/", AdminController, :index
+    delete "/:id", AdminController, :delete
     resources "/invite_tokens", TokenController
   end
 

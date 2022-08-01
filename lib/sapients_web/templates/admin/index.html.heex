@@ -3,3 +3,11 @@
 <span class="mt-5 flex link">
     <%= link "Tokens", to: Routes.token_path(@conn, :index) %>
 </span>
+
+<h2>Users</h2>
+
+<%= for user <- @users do %>
+    <div>
+        <span><%= user.username %> | <%= user.email %></span>
+    </div>
+<% end %>
