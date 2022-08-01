@@ -19,5 +19,9 @@ defmodule Sapients.Media.Post do
     post
     |> cast(attrs, [:title, :description, :image, :url, :order])
     |> validate_required([:title, :description, :image, :url, :order])
+    |> validate_length(:title, min: 3, max: 100)
+    |> validate_length(:url, max: 2047)
+    |> validate_length(:image, max: 2047)
+    |> validate_length(:description, max: 2047)
   end
 end
