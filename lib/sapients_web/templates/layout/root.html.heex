@@ -16,7 +16,7 @@
         <%= @inner_content %>
       </div>
       <div>
-        <%= render "footer.html", logo: Routes.static_path(@conn, "/images/sapients.png") %>
+        <%= render "footer.html", logo: Routes.static_path(@conn, "/images/sapients.png"), conn: @conn %>
       </div>
     </main>
   </body>
