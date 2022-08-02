@@ -12,7 +12,16 @@
     <%= label f, :image_url %>
     <%= text_input f, :image_url %>
     <%= error_tag f, :image_url %>
-  
+
+    <%= live_file_input @uploads.image %>
+
+    <%= for entry <- @uploads.image.entries do %>
+      <figure>
+        <%# Phoenix.LiveView.Helpers.live_img_preview/2 renders a client-side preview %>
+        <%= live_img_preview entry %>
+        <figcaption><%= entry.client_name %></figcaption>
+      </figure>
+    <% end %>
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>

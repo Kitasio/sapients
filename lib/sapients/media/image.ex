@@ -4,7 +4,8 @@ defmodule Sapients.Media.Image do
 
   schema "images" do
     field :image_url, :string
-    field :user_id, :id
+
+    belongs_to :user, Sapients.Accounts.User
 
     timestamps()
   end

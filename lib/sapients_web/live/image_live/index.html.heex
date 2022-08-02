@@ -1,4 +1,4 @@
-<h1>Listing Images</h1>
+<h1 class="mt-10">Listing Images</h1>
 
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.image_index_path(@socket, :index)}>
@@ -8,6 +8,7 @@
       title={@page_title}
       action={@live_action}
       image={@image}
+      user={@user}
       return_to={Routes.image_index_path(@socket, :index)}
     />
   </.modal>
@@ -25,6 +26,8 @@
     <%= for image <- @images do %>
       <tr id={"image-#{image.id}"}>
         <td><%= image.image_url %></td>
+        <td><%= image.user_id %></td>
+        <%= img_tag(Routes.static_path(@socket, image.image_url), class: "w-32", alt: "hello") %>
 
         <td>
           <span><%= live_redirect "Show", to: Routes.image_show_path(@socket, :show, image) %></span>

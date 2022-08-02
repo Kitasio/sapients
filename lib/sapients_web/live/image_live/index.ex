@@ -3,10 +3,16 @@ defmodule SapientsWeb.ImageLive.Index do
 
   alias Sapients.Media
   alias Sapients.Media.Image
+  alias Sapients.Accounts
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, :images, list_images())}
+  def mount(_params, session, socket) do
+    socket =
+      socket
+      |> assign(:images, list_images())
+      |> assign(:user, Accounts.get_user_by_session_token(session["user_token"]))
+
+    {:ok, socket}
   end
 
   @impl true
@@ -23,6 +29,7 @@ defmodule SapientsWeb.ImageLive.Index do
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Image")
+    |> assign(:user, socket.assigns.user)
     |> assign(:image, %Image{})
   end
 

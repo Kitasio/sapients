@@ -293,9 +293,10 @@ defmodule Sapients.Media do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_image(attrs \\ %{}) do
+  def create_image(%Accounts.User{} = user, attrs \\ %{}) do
     %Image{}
     |> Image.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:user, user)
     |> Repo.insert()
   end
 
