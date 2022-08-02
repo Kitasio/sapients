@@ -37,4 +37,18 @@ defmodule Sapients.MediaFixtures do
 
     link
   end
+
+  @doc """
+  Generate a image.
+  """
+  def image_fixture(attrs \\ %{}) do
+    {:ok, image} =
+      attrs
+      |> Enum.into(%{
+        image_url: "some image_url"
+      })
+      |> Sapients.Media.create_image()
+
+    image
+  end
 end
