@@ -12,7 +12,7 @@ defmodule SapientsWeb.ImageLive.FormComponent do
      |> assign(assigns)
      |> assign(:changeset, changeset)
      |> assign(:user, user)
-     |> allow_upload(:image, accept: ~w(.jpg .jpeg .png))}
+     |> allow_upload(:image, accept: ~w(.jpg .jpeg .png), max_entries: 1)}
   end
 
   @impl true
