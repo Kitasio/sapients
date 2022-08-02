@@ -14,29 +14,14 @@
   </.modal>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Image url</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="images">
+<div class="flex flex-wrap">
     <%= for image <- @images do %>
-      <tr id={"image-#{image.id}"}>
-        <td><%= image.image_url %></td>
-        <td><%= image.user_id %></td>
-        <%= img_tag(Routes.static_path(@socket, image.image_url), class: "w-32", alt: "hello") %>
-
-        <td>
-          <span><%= live_redirect "Show", to: Routes.image_show_path(@socket, :show, image) %></span>
-          <span><%= live_patch "Edit", to: Routes.image_index_path(@socket, :edit, image) %></span>
+          <span><%= live_redirect img_tag(Routes.static_path(@socket, image.image_url), class: "max-w-md", alt: "user uploaded image"),
+                  to: Routes.image_show_path(@socket, :show, image) 
+                %>
+          </span>
           <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: image.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
-      </tr>
     <% end %>
-  </tbody>
-</table>
+</div>
 
 <span><%= live_patch "New Image", to: Routes.image_index_path(@socket, :new) %></span>

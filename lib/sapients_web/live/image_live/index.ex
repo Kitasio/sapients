@@ -28,7 +28,7 @@ defmodule SapientsWeb.ImageLive.Index do
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Image")
+    |> assign(:page_title, "Drop image or click here")
     |> assign(:user, socket.assigns.user)
     |> assign(:image, %Image{})
   end
