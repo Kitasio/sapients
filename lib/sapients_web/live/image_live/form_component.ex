@@ -12,7 +12,10 @@ defmodule SapientsWeb.ImageLive.FormComponent do
      |> assign(assigns)
      |> assign(:changeset, changeset)
      |> assign(:user, user)
-     |> allow_upload(:image, accept: ~w(.jpg .jpeg .png), max_entries: 5)}
+     |> allow_upload(:image,
+       accept: ~w(.jpg .jpeg .png),
+       max_entries: 5
+     )}
   end
 
   @impl true
@@ -26,30 +29,36 @@ defmodule SapientsWeb.ImageLive.FormComponent do
   end
 
   def handle_event("save", %{"image" => image_params}, socket) do
-    create_path_if_not_exists("priv/static/uploads")
-    uploaded_files =
-      consume_uploaded_entries(socket, :image, fn %{path: path}, entry ->
-        dest = Path.join("priv/static/uploads", "#{entry.uuid}.#{ext(entry)}")
-        File.cp!(path, dest)
-        {:ok, Routes.static_path(socket, "/uploads/#{entry.uuid}.#{ext(entry)}")}
-      end)
+    uploaded_files = consume_images(socket)
 
-    for file <- uploaded_files do
-      image_params = %{image_params | "image_url" => file}
+    for url <- uploaded_files do
+      image_params = %{image_params | "image_url" => url}
       save_image(socket, socket.assigns.action, image_params)
     end
 
-    socket |> push_redirect(to: socket.assigns.return_to)
+    {:noreply,
+     socket
+     |> push_redirect(to: socket.assigns.return_to)}
   end
 
   def handle_event("cancel_upload", %{"ref" => ref}, socket) do
     {:noreply, cancel_upload(socket, :image, ref)}
   end
 
-  defp create_path_if_not_exists(path) do
-    unless File.exists?(path) do
-      File.mkdir_p!(path)
-    end
+  defp consume_images(socket) do
+    imagekit_url = Application.get_env(:sapients, :imagekit_url)
+    bucket = Application.get_env(:sapients, :bucket)
+
+    consume_uploaded_entries(socket, :image, fn meta, entry ->
+      filename = "#{entry.uuid}.#{ext(entry)}"
+      file = File.read!(meta.path)
+
+      ExAws.S3.put_object(bucket, filename, file)
+      |> ExAws.request!()
+
+      image_url = Path.join(imagekit_url, filename)
+      {:ok, image_url}
+    end)
   end
 
   def ext(entry) do
@@ -83,4 +92,5 @@ defmodule SapientsWeb.ImageLive.FormComponent do
   defp error_to_string(:too_large), do: "Too large"
   defp error_to_string(:too_many_files), do: "You have selected too many files"
   defp error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
+  defp error_to_string(error), do: error
 end

@@ -22,22 +22,26 @@
     <%= hidden_input f, :image_url %>
 
 
-    <%= for entry <- @uploads.image.entries do %>
-      <figure class="max-w-sm">
-        <%= live_img_preview entry %>
-        <figcaption><%= entry.client_name %></figcaption>
-      </figure>
+    <div class="mt-10 flex flex-wrap gap-5">
+      <%= for entry <- @uploads.image.entries do %>
+        <div class="flex flex-col">
+          <div class="flex-grow h-[20vh]">
+            <%= live_img_preview entry, class: "object-cover align-bottom max-h-full mix-w-full" %>
+          </div>
 
-      <%= if entry.progress > 0 do %>
-        <progress value={entry.progress} max="100"> <%= entry.progress %>% </progress>
+          <%= link "cancel", to: "#", phx_click: "cancel_upload", phx_value_ref: entry.ref, phx_target: @myself, class: "border-b-2 border-blue-clue" %>
+
+          <%= if entry.progress > 0 do %>
+            <progress value={entry.progress} max="100"> <%= entry.progress %>% </progress>
+          <% end %>
+
+        </div>
+
+        <%= for err <- upload_errors(@uploads.image, entry) do %>
+          <p class="alert alert-danger"><%= error_to_string(err) %></p>
+        <% end %>
       <% end %>
-
-      <%= link "cancel", to: "#", phx_click: "cancel_upload", phx_value_ref: entry.ref, phx_target: @myself, class: "p-5 border-2 border-gray-900" %>
-
-      <%= for err <- upload_errors(@uploads.image, entry) do %>
-        <p class="alert alert-danger"><%= error_to_string(err) %></p>
-      <% end %>
-    <% end %>
+    </div>
     <div>
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>

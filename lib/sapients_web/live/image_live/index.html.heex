@@ -21,9 +21,10 @@
 <div class="mt-10 flex flex-wrap gap-5">
     <%= for image <- @images do %>
           <div class="group flex flex-col gap-1">
-            <div class="flex-grow h-[40vh]"><%= link img_tag(Routes.static_path(@socket, image.image_url), class: "object-cover align-bottom max-h-full mix-w-full", alt: "user uploaded image"),
-                    to: image.image_url, target: "_blank"
-                  %>
+            <div class="flex-grow h-[40vh]">
+              <a href={image.image_url} target="_blank">
+                <img class="object-cover align-bottom max-h-full mix-w-full" src={image.image_url}>
+              </a>
             </div>
             <div class="h-7 flex">
               <span class="hidden link w-full border-b-2 border-blue-clue group-hover:inline"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: image.id, data: [confirm: "Are you sure?"] %></span>

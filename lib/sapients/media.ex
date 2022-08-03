@@ -262,7 +262,13 @@ defmodule Sapients.Media do
 
   """
   def list_images do
-    Repo.all(Image)
+    Image
+    |> list_images_query()
+    |>Repo.all()
+  end
+
+  defp list_images_query(query) do
+    from(i in query, order_by: [desc: :id])
   end
 
   @doc """
