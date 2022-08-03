@@ -1,4 +1,4 @@
-<ul>
+<ul class="pt-5 mt-10 border-t border-blue-clue">
 <%= if @current_user do %>
   <li><%= @current_user.email %></li>
   <li><%= link "Profile", to: Routes.profile_path(@conn, :index) %></li>

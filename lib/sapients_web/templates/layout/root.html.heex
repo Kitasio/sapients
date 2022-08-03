@@ -15,6 +15,9 @@
         <%= render "nav.html", logo: Routes.static_path(@conn, "/images/sapients.png"), conn: @conn %>
         <%= @inner_content %>
       </div>
+      <%= if @conn.assigns.current_user do %>
+        <%= render SapientsWeb.LayoutView, "_user_menu.html", conn: @conn, current_user: @conn.assigns.current_user %>
+      <% end %>
       <div>
         <%= render "footer.html", logo: Routes.static_path(@conn, "/images/sapients.png"), conn: @conn %>
       </div>
