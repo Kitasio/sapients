@@ -26,6 +26,7 @@ defmodule SapientsWeb.ImageLive.FormComponent do
   end
 
   def handle_event("save", %{"image" => image_params}, socket) do
+    create_path_if_not_exists("priv/static/uploads")
     uploaded_files =
       consume_uploaded_entries(socket, :image, fn %{path: path}, entry ->
         dest = Path.join("priv/static/uploads", "#{entry.uuid}.#{ext(entry)}")
@@ -43,6 +44,12 @@ defmodule SapientsWeb.ImageLive.FormComponent do
 
   def handle_event("cancel_upload", %{"ref" => ref}, socket) do
     {:noreply, cancel_upload(socket, :image, ref)}
+  end
+
+  defp create_path_if_not_exists(path) do
+    unless File.exists?(path) do
+      File.mkdir_p!(path)
+    end
   end
 
   def ext(entry) do
