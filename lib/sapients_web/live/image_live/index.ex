@@ -7,10 +7,12 @@ defmodule SapientsWeb.ImageLive.Index do
 
   @impl true
   def mount(_params, session, socket) do
+    user = Accounts.get_user_by_session_token(session["user_token"])
+
     socket =
       socket
-      |> assign(:images, list_images())
-      |> assign(:user, Accounts.get_user_by_session_token(session["user_token"]))
+      |> assign(:images, list_user_images(user))
+      |> assign(:user, user)
 
     {:ok, socket}
   end
@@ -44,10 +46,10 @@ defmodule SapientsWeb.ImageLive.Index do
     image = Media.get_image!(id)
     {:ok, _} = Media.delete_image(image)
 
-    {:noreply, assign(socket, :images, list_images())}
+    {:noreply, assign(socket, :images, list_user_images(socket.assigns.user))}
   end
 
-  defp list_images do
-    Media.list_images()
+  defp list_user_images(user) do
+    Media.list_user_images(user)
   end
 end

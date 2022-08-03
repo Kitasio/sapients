@@ -263,11 +263,22 @@ defmodule Sapients.Media do
   """
   def list_images do
     Image
-    |> list_images_query()
-    |>Repo.all()
+    |> images_desc_query()
+    |> Repo.all()
   end
 
-  defp list_images_query(query) do
+  def list_user_images(%Accounts.User{} = user) do
+    Image
+    |> user_images_query(user)
+    |> images_desc_query()
+    |> Repo.all()
+  end
+
+  defp user_images_query(query, %Accounts.User{id: user_id}) do
+    from(i in query, where: i.user_id == ^user_id)
+  end
+
+  defp images_desc_query(query) do
     from(i in query, order_by: [desc: :id])
   end
 
