@@ -1,73 +1,49 @@
 <div class="space-y-10">
     <h1 class="text-3xl font-medium">Profile page: <span class="font-thin"><%= @current_user.email %></span></h1>
 
+    <%= link "All Images", to: Routes.image_index_path(@conn, :index), class: "text-xl link" %>
+
     <div>
-        <h2 class="text-2xl">Listing Links</h2>
+        <h2 class="text-4xl font-bold">Social media links</h2>
 
         <span class="link"><%= link "New Link", to: Routes.link_path(@conn, :new) %></span>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Url</th>
-
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="mt-5 flex flex-col gap-7">
             <%= for link <- @links do %>
-                <tr>
-                    <td><%= link.title %></td>
-                    <td><%= link.url %></td>
+                <div class="flex items-center justify-between border-2 border-blue-clue">
+                    <%= link link.url, to: link.url, class: "p-5" %>
 
-                    <td>
-                        <span><%= link "Show", to: Routes.link_path(@conn, :show, link) %></span>
-                        <span><%= link "Edit", to: Routes.link_path(@conn, :edit, link) %></span>
-                        <span><%= link "Delete", to: Routes.link_path(@conn, :delete, link), method: :delete, data: [confirm: "Are you sure?"] %></span>
-                    </td>
-                </tr>
+                    <div class="p-5 border-l-2 border-blue-clue flex gap-5">
+                        <span><%= link "Show", to: Routes.link_path(@conn, :show, link), class: "link" %></span>
+                        <span><%= link "Edit", to: Routes.link_path(@conn, :edit, link), class: "link" %></span>
+                        <span><%= link "Delete", to: Routes.link_path(@conn, :delete, link), class: "link", method: :delete, data: [confirm: "Are you sure?"] %></span>
+                    </div>
+                </div>
             <% end %>
-            </tbody>
-        </table>
+        </div>
     </div>
 
-
     <div>
-        <h1>Listing Posts</h1>
+        <h1 class="text-4xl font-bold">Listing Posts</h1>
 
-        <span><%= link "New Post", to: Routes.post_path(@conn, :new) %></span>
+        <span class="link"><%= link "New Post", to: Routes.post_path(@conn, :new) %></span>
 
-        <table>
-        <thead>
-            <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Url</th>
-            <th>Order</th>
+        <div class="mt-5 flex flex-col gap-7">
+            <%= for post <- @posts do %>
+                <div class="flex items-center justify-between border-2 border-blue-clue">
+                    <div class="flex gap-5">
+                        <img src={post.image} class="h-20 aspect-video object-cover">
+                        <p><%= post.title %></p>
+                    </div>
 
-            <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        <%= for post <- @posts do %>
-            <tr>
-            <td><%= post.title %></td>
-            <td><%= post.description %></td>
-            <td><%= post.image %></td>
-            <td><%= post.url %></td>
-            <td><%= post.order %></td>
-
-            <td>
-                <span><%= link "Show", to: Routes.post_path(@conn, :show, post) %></span>
-                <span><%= link "Edit", to: Routes.post_path(@conn, :edit, post) %></span>
-                <span><%= link "Delete", to: Routes.post_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"] %></span>
-            </td>
-            </tr>
-        <% end %>
-        </tbody>
-        </table>
+                    <div class="p-5 h-20 border-l-2 border-blue-clue flex items-center gap-5">
+                        <span><%= link "Show", to: Routes.post_path(@conn, :show, post), class: "link" %></span>
+                        <span><%= link "Edit", to: Routes.post_path(@conn, :edit, post), class: "link" %></span>
+                        <span><%= link "Delete", to: Routes.post_path(@conn, :delete, post), class: "link", method: :delete, data: [confirm: "Are you sure?"] %></span>
+                    </div>
+                </div>
+            <% end %>
+        </div>
     </div>
 
     <%= render SapientsWeb.LayoutView, "_user_menu.html", conn: @conn, current_user: @conn.assigns.current_user %>
