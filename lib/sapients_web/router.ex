@@ -110,8 +110,5 @@ defmodule SapientsWeb.Router do
     live "/images", ImageLive.Index, :index
     live "/images/new", ImageLive.Index, :new
     live "/images/:id/edit", ImageLive.Index, :edit
-
-    live "/images/:id", ImageLive.Show, :show
-    live "/images/:id/show/edit", ImageLive.Show, :edit
   end
 end

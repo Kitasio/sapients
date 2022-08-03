@@ -1,5 +1,9 @@
 <h1 class="mt-10">Listing Images</h1>
 
+<div class="mt-2">
+  <span class="link text-xl"><%= live_patch "New Image", to: Routes.image_index_path(@socket, :new) %></span>
+</div>
+
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.image_index_path(@socket, :index)}>
     <.live_component
@@ -14,14 +18,17 @@
   </.modal>
 <% end %>
 
-<div class="flex flex-wrap">
+<div class="mt-10 flex flex-wrap gap-5">
     <%= for image <- @images do %>
-          <span><%= live_redirect img_tag(Routes.static_path(@socket, image.image_url), class: "max-w-md", alt: "user uploaded image"),
-                  to: Routes.image_show_path(@socket, :show, image) 
-                %>
-          </span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: image.id, data: [confirm: "Are you sure?"] %></span>
+          <div class="group flex flex-col gap-1">
+            <div class="flex-grow h-[40vh]"><%= link img_tag(Routes.static_path(@socket, image.image_url), class: "object-cover align-bottom max-h-full mix-w-full", alt: "user uploaded image"),
+                    to: image.image_url, target: "_blank"
+                  %>
+            </div>
+            <div class="h-7 flex">
+              <span class="hidden link w-full border-b-2 border-blue-clue group-hover:inline"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: image.id, data: [confirm: "Are you sure?"] %></span>
+            </div>
+          </div>
     <% end %>
 </div>
 
-<span><%= live_patch "New Image", to: Routes.image_index_path(@socket, :new) %></span>
