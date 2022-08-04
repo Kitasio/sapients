@@ -18,18 +18,27 @@
   </.modal>
 <% end %>
 
+<div>Testing alpine</div>
+
 <div class="mt-10 flex flex-wrap gap-5">
     <%= for image <- @images do %>
-          <div class="group flex flex-col gap-1">
+        <div 
+          class="h-[40vh] min-w-[20vw]" 
+          x-data={"{ shown#{image.id}: false, src#{image.id}: '' }"}
+          x-intersect={"shown#{image.id} = true, src#{image.id} = '#{image.image_url}'"}
+        >
+          <div x-show={"shown#{image.id}"} x-transition.duration.1000ms class="group flex flex-col gap-1">
             <div class="flex-grow h-[40vh]">
               <a href={image.image_url} target="_blank">
-                <img class="object-cover align-bottom max-h-full mix-w-full" src={image.image_url}>
+                <img class="object-cover align-bottom max-h-full mix-w-full" x-bind:src={"src#{image.id}"}>
               </a>
             </div>
             <div class="h-7 flex">
               <span class="hidden link w-full border-b-2 border-blue-clue group-hover:inline"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: image.id, data: [confirm: "Are you sure?"] %></span>
             </div>
           </div>
+        </div>
     <% end %>
 </div>
+
 
