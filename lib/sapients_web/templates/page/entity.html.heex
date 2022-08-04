@@ -1,4 +1,6 @@
-<div class="py-4 mt-9 flex justify-between items-center">
+<div
+    class="py-4 mt-9 flex justify-between items-center"
+  >
   <a href={@userlink} class="flex items-center gap-3.5 group transition-all">
     <p class="text-xl font-bold uppercase group-hover:text-blue-clue transition"><%= @user.username %></p>
     <img class="w-5 h-5 animate-bounce-x" src={@arrow} alt="action arrow">
@@ -14,8 +16,14 @@
 
 <div class="flex flex-wrap">
   <%= for post <- @posts do %>
-    <a class="sm:w-1/2 lg:w-1/3 first:w-full last:hidden last:lg:inline" href={post.url} target="_blank">
-      <img class="aspect-video object-cover w-full " src={post.image} alt="">
+    <a
+        class="sm:w-1/2 lg:w-1/3 first:w-full last:hidden last:lg:inline"
+        href={post.url}
+        target="_blank"
+        x-data={"{ shown#{post.id}: false, src#{post.id}: '' }"}
+        x-intersect={"shown#{post.id} = true, src#{post.id} = '#{post.image}'"}
+    >
+      <img x-show={"shown#{post.id}"} x-transition class="aspect-video object-cover w-full" x-bind:src={"src#{post.id}"} alt="">
     </a>
   <% end %>
 </div>
