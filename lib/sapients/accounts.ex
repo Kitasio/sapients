@@ -60,14 +60,31 @@ defmodule Sapients.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
-  def list_users_for_index() do
+  def list_regular_users() do
     User
     |> list_not_admins_query()
     |> Repo.all()
   end
 
+  def list_users_for_index() do
+    User
+    |> list_not_admins_query()
+    |> list_unless_hidden_query()
+    |> Repo.all()
+  end
+
+  defp list_unless_hidden_query(query) do
+    from(u in query, where: u.hidden == false)
+  end
+
   defp list_not_admins_query(query) do
     from(u in query, where: u.is_admin == false)
+  end
+
+  def update_user(%User{} = user, attrs) do
+    user
+    |> User.changeset(attrs)
+    |> Repo.update()
   end
   
   ## User registration

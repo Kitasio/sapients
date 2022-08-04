@@ -9,6 +9,9 @@ defmodule Sapients.Accounts.User do
     field :confirmed_at, :naive_datetime
     field :is_admin, :boolean
     field :username, :string
+    field :credo, :string
+    field :order, :integer
+    field :hidden, :boolean
 
     timestamps()
   end
@@ -30,6 +33,11 @@ defmodule Sapients.Accounts.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
+  def changeset(user, attrs) do
+    user
+    |> cast(attrs, [:username, :credo, :order, :hidden, :is_admin])
+  end
+
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password, :username])
