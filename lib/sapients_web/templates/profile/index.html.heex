@@ -1,7 +1,7 @@
 <div class="space-y-10">
     <h1 class="text-3xl font-medium">Profile page: <span class="font-thin"><%= @current_user.email %></span></h1>
 
-    <%= link "All Images", to: Routes.image_index_path(@conn, :index), class: "text-xl link" %>
+    <%= link "Your uploaded images", to: Routes.image_index_path(@conn, :index), class: "text-xl link" %>
 
     <div>
         <h2 class="text-4xl font-bold">Social media links</h2>
