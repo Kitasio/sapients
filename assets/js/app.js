@@ -24,8 +24,8 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
-import Alpine from "alpinejs"
-import intersect from '@alpinejs/intersect'
+import Alpine from "../vendor/alpinejs"
+import intersect from '../vendor/@alpinejs/intersect'
  
 window.Alpine = Alpine
 Alpine.plugin(intersect)
@@ -45,7 +45,7 @@ let liveSocket = new LiveSocket("/live", Socket, {
 })
 
 // Show progress bar on live navigation and form submits
-topbar.config({barColors: {0: "#29d"}, shadowColor: "rgba(0, 0, 0, .3)"})
+topbar.config({barColors: {0: "#00FFFF"}, shadowColor: "rgba(0, 0, 0, .3)"})
 window.addEventListener("phx:page-loading-start", info => topbar.show())
 window.addEventListener("phx:page-loading-stop", info => topbar.hide())
 
