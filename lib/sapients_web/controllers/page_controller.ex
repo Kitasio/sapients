@@ -14,4 +14,10 @@ defmodule SapientsWeb.PageController do
     posts = Media.list_user_posts(user)
     render(conn, "show.html", posts: posts)
   end
+
+  def pick_palette(conn, _opts) do
+    colors = [:nothing, :brick, :sun, :aqua] |> Enum.random()
+
+    assign(conn, :palette, colors)
+  end
 end

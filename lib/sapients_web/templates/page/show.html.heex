@@ -1,11 +1,10 @@
 <div>user posts</div>
 
-<!-- <div class="lg:col-span-2 lg:col-span-3">Never mind my lazy ass</div> -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
   <%= for post <- @posts do %>
     <a href={post.url} target="_blank" class={"lg:col-span-#{post.size}"}>
       <img src={post.image} class="object-cover w-full">
-      <h1 class="subheading mt-1"><%= post.title %></h1>
+      <p class={"subheading mt-1"}><%= post.title %></p>
       <p class="para mt-3"><%= post.description %></p>
     </a>
   <% end %>

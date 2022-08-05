@@ -2,6 +2,7 @@ defmodule SapientsWeb.Router do
   use SapientsWeb, :router
 
   import SapientsWeb.UserAuth
+  import SapientsWeb.PageController
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -11,6 +12,7 @@ defmodule SapientsWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    plug :pick_palette
   end
 
   pipeline :api do

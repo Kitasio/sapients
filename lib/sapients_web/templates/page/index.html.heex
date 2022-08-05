@@ -1,7 +1,7 @@
 <div class="mt-7">
   <%= render "social_links.html" %>
   <div class="mt-7 flex justify-between">
-    <p class="heading">EPIC CRAZY<br> GAME CHANGER<br> SECRETS</p>
+    <p class={"heading text-#{@conn.assigns.palette}-secondary"}>EPIC CRAZY<br> GAME CHANGER<br> SECRETS</p>
     <img class="hidden lg:inline lg:w-72 xl:w-96" src={Routes.static_path(@conn, "/images/arrow.svg")} alt="Arrow">
   </div>
   <div class="mt-5 xl:mt-20 md:w-2/3 xl:w-1/2 2xl:w-5/12 flex flex-col sm:flex-row justify-between gap-7 para">
