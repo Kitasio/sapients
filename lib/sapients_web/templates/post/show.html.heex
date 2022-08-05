@@ -27,6 +27,11 @@
     <%= @post.order %>
   </li>
 
+  <li>
+    <strong>Size:</strong>
+    <%= @post.size %>
+  </li>
+
 </ul>
 
 <span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span> |

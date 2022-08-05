@@ -20,6 +20,26 @@
   </div>
 </.form>
 
+<h3>Change credo</h3>
+
+<.form let={f} for={@credo_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_credo">
+  <%= if @credo_changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= hidden_input f, :action, name: "action", value: "update_credo" %>
+
+  <%= label f, :credo %>
+  <%= textarea f, :credo, required: true, rows: "7" %>
+  <%= error_tag f, :credo %>
+
+  <div>
+    <%= submit "Change credo" %>
+  </div>
+</.form>
+
 <h3>Change email</h3>
 
 <.form let={f} for={@email_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_email">

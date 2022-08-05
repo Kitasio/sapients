@@ -49,8 +49,8 @@
   border-radius: 4px;
 }
 .alert-info {
-  color: #00FFFF;
-  background-color: #d9edf7;
+  color: #fff;
+  background-color: #00FFFF;
   border-color: #fff;
 }
 .alert-warning {

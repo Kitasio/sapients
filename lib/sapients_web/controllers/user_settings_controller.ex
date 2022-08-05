@@ -4,10 +4,25 @@ defmodule SapientsWeb.UserSettingsController do
   alias Sapients.Accounts
   alias SapientsWeb.UserAuth
 
-  plug :assign_username_email_and_password_changesets
+  plug :assign_changesets
 
   def edit(conn, _params) do
     render(conn, "edit.html")
+  end
+
+  def update(conn, %{"action" => "update_credo"} = params) do
+    %{"user" => user_params} = params
+    user = conn.assigns.current_user
+
+    case Accounts.update_user_credo(user, user_params) do
+      {:ok, _user} ->
+        conn
+        |> put_flash(:info, "Credo updated")
+        |> redirect(to: Routes.user_settings_path(conn, :edit))
+
+      {:error, changeset} ->
+        render(conn, "edit.html", credo_changeset: changeset)
+    end
   end
 
   def update(conn, %{"action" => "update_username"} = params) do
@@ -79,10 +94,11 @@ defmodule SapientsWeb.UserSettingsController do
     end
   end
 
-  defp assign_username_email_and_password_changesets(conn, _opts) do
+  defp assign_changesets(conn, _opts) do
     user = conn.assigns.current_user
 
     conn
+    |> assign(:credo_changeset, Accounts.change_user_credo(user))
     |> assign(:username_changeset, Accounts.change_user_username(user))
     |> assign(:email_changeset, Accounts.change_user_email(user))
     |> assign(:password_changeset, Accounts.change_user_password(user))

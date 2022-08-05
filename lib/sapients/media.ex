@@ -107,12 +107,14 @@ defmodule Sapients.Media do
   def list_user_posts(%Accounts.User{} = user) do
     Post
     |> user_posts_query(user)
+    |> order_query()
     |> Repo.all()
   end
 
   def list_user_posts_limited(%Accounts.User{} = user, amount) do
     Post
     |> user_posts_query(user)
+    |> order_query()
     |> limit_posts_query(amount)
     |> Repo.all()
   end
@@ -127,6 +129,10 @@ defmodule Sapients.Media do
     Post
     |> user_posts_query(user)
     |> Repo.get!(id)
+  end
+
+  defp order_query(query) do
+    from(p in query, order_by: [asc: p.order])
   end
 
   defp limit_posts_query(query, amount) do

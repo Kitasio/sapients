@@ -149,6 +149,10 @@ defmodule Sapients.Accounts do
     User.username_changeset(user, attrs)
   end
 
+  def change_user_credo(user, attrs \\ %{}) do
+    User.credo_changeset(user, attrs)
+  end
+
   @doc """
   Emulates that the email will change without actually changing
   it in the database.
@@ -259,6 +263,12 @@ defmodule Sapients.Accounts do
   def update_user_username(user, attrs) do
     user
     |> User.username_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_user_credo(user, attrs) do
+    user
+    |> User.credo_changeset(attrs)
     |> Repo.update()
   end
 

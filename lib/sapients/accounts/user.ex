@@ -110,6 +110,15 @@ defmodule Sapients.Accounts.User do
     end
   end
 
+  def credo_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:credo])
+    |> case do
+      %{changes: %{credo: _}} = changeset -> changeset
+      %{} = changeset -> add_error(changeset, :credo, "did not change")
+    end
+  end
+
   @doc """
   A user changeset for changing the password.
 
