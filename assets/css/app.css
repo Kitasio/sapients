@@ -27,6 +27,18 @@
   .link {
     @apply text-red-400 hover:underline hover:text-red-500;
   }
+
+  .heading {
+    @apply text-white text-4xl sm:text-6xl md:text-7xl xl:text-8xl font-bold leading-[150%] sm:leading-[150%] md:leading-[150%] xl:leading-[150%];
+  }
+
+  .para {
+    @apply text-sm font-bold;
+  }
+
+  .subheading {
+    @apply text-xl font-bold uppercase;
+  }
 }
 
 /* Alerts and form errors used by phx.new */
@@ -37,9 +49,9 @@
   border-radius: 4px;
 }
 .alert-info {
-  color: #31708f;
+  color: #00FFFF;
   background-color: #d9edf7;
-  border-color: #bce8f1;
+  border-color: #fff;
 }
 .alert-warning {
   color: #8a6d3b;
