@@ -113,6 +113,7 @@ defmodule Sapients.Accounts.User do
   def credo_changeset(user, attrs) do
     user
     |> cast(attrs, [:credo])
+    |> validate_length(:credo, max: 320)
     |> case do
       %{changes: %{credo: _}} = changeset -> changeset
       %{} = changeset -> add_error(changeset, :credo, "did not change")

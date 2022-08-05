@@ -1,9 +1,17 @@
-<div>user posts</div>
+<h1 class={"heading text-#{@conn.assigns.palette}-primary"}><%= @user.username %></h1>
+<p class={"para max-w-sm whitespace-pre-line text-#{@conn.assigns.palette}-secondary"}><%= @user.credo %></p>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+<div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
   <%= for post <- @posts do %>
-    <a href={post.url} target="_blank" class={"lg:col-span-#{post.size}"}>
-      <img src={post.image} class="object-cover w-full">
+    <a href={post.url}
+      target="_blank"
+      class={"lg:col-span-#{post.size} min-h-[40vh]"}
+      x-data={"{ shown#{post.id}: false, src#{post.id}: '' }"}
+      x-intersect={"shown#{post.id} = true, src#{post.id} = '#{post.image}'"}
+    >
+      <div class="overflow-hidden">
+        <img x-show={"shown#{post.id}"} x-transition.duration.300ms x-bind:src={"src#{post.id}"} class="object-cover w-full hover:brightness-125 hover:scale-105 transition ease-in-out duration-300">
+      </div>
       <p class={"subheading mt-1"}><%= post.title %></p>
       <p class="para mt-3"><%= post.description %></p>
     </a>

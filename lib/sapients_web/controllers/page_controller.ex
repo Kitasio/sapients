@@ -12,7 +12,7 @@ defmodule SapientsWeb.PageController do
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
     posts = Media.list_user_posts(user)
-    render(conn, "show.html", posts: posts)
+    render(conn, "show.html", posts: posts, user: user)
   end
 
   def pick_palette(conn, _opts) do
