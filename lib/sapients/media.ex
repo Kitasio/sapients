@@ -132,7 +132,7 @@ defmodule Sapients.Media do
   end
 
   defp order_query(query) do
-    from(p in query, order_by: [asc: p.order])
+    from(p in query, order_by: [asc: p.order, desc: p.id])
   end
 
   defp limit_posts_query(query, amount) do
