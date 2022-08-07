@@ -21,7 +21,7 @@
         href={post.url}
         target="_blank"
         x-data={"{ shown#{post.id}: false, src#{post.id}: '' }"}
-        x-intersect={"shown#{post.id} = true, src#{post.id} = '#{post.image}'"}
+        x-intersect={"shown#{post.id} = true, src#{post.id} = '#{insert_image_tr_index(post.image, post.order)}'"}
     >
       <img x-show={"shown#{post.id}"} x-transition class="aspect-video hover:brightness-125 hover:scale-105 transition ease-in-out duration-300 object-cover w-full" x-bind:src={"src#{post.id}"} alt="">
     </a>
