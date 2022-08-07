@@ -2,7 +2,7 @@
     class="py-4 mt-9 flex justify-between items-center"
   >
   <a href={@userlink} class="flex items-center gap-3.5 group transition-all">
-    <p class="subheading group-hover:text-blue-clue transition"><%= @user.username %></p>
+    <p class={"subheading group-hover:text-#{@conn.assigns.palette}-accent transition"}><%= @user.username %></p>
     <img class="w-5 h-5 animate-bounce-x" src={@arrow} alt="action arrow">
   </a>
   <div class="flex gap-4">

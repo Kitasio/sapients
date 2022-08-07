@@ -10,7 +10,7 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body>
-    <main class={"flex flex-col justify-between min-h-screen p-7 bg-#{@conn.assigns.palette}-cover text-gray-900"}>
+    <main class={"flex flex-col justify-between min-h-screen p-7 bg-#{@conn.assigns.palette}-default text-#{@conn.assigns.palette}-secondary"}>
       <div>
         <%= render "nav.html", logo: Routes.static_path(@conn, "/images/sapients.png"), conn: @conn %>
         <%= @inner_content %>

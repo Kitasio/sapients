@@ -5,15 +5,15 @@
   <%= for post <- @posts do %>
     <a href={post.url}
       target="_blank"
-      class={"lg:col-span-#{post.size} min-h-[40vh]"}
+      class={"lg:col-span-#{post.size} min-h-[40vh] group"}
       x-data={"{ shown#{post.id}: false, src#{post.id}: '' }"}
       x-intersect={"shown#{post.id} = true, src#{post.id} = '#{insert_image_tr(post.image, post.size)}'"}
     >
       <div class="overflow-hidden">
         <img x-show={"shown#{post.id}"} x-transition.duration.300ms x-bind:src={"src#{post.id}"} class="object-cover w-full hover:brightness-125 hover:scale-105 transition ease-in-out duration-300">
       </div>
-      <p class={"subheading mt-1"}><%= post.title %></p>
-      <p class="para mt-3"><%= post.description %></p>
+      <p class={"subheading mt-3 group-hover:text-#{@conn.assigns.palette}-accent"}><%= post.title %></p>
+      <p class="para mt-1"><%= post.description %></p>
     </a>
   <% end %>
 </div>

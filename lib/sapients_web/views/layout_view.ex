@@ -12,9 +12,9 @@ defmodule SapientsWeb.LayoutView do
   def active_class(conn, path) do
     current_path = Path.join(["/" | conn.path_info])
     if path == current_path do
-      "text-blue-clue hover:text-blue-clue transition"
+      "text-#{conn.assigns.palette}-accent transition"
     else
-      "hover:text-blue-clue transition"
+      "hover:text-#{conn.assigns.palette}-accent transition"
     end
   end
 

@@ -13,10 +13,11 @@ module.exports = {
     'lg:col-span-2',
     'lg:col-span-3',
     {
-      pattern: /bg-(brick|sun|aqua|nothing)-cover/,
+      pattern: /bg-(brick|sun|aqua|nothing)-default/,
     },
     {
-      pattern: /text-(brick|sun|aqua|nothing)-(primary|secondary)/,
+      pattern: /text-(brick|sun|aqua|nothing)-(primary|secondary|accent)/,
+      variants: ['hover', 'group-hover'],
     }
   ],
   theme: {
@@ -28,31 +29,29 @@ module.exports = {
       },
       colors: {
         brick: {
-          cover: "#FF4937",
+          default: "#FF4937",
           primary: "#231F20",
           secondary: "#FFF",
+          accent: "#FAFF00",
         },
         sun: {
-          cover: "#FAFF00",
-          primary: "#00FFFF",
-          secondary: "#FFF",
+          default: "#FAFF00",
+          primary: "#FFF",
+          secondary: "#231F20",
+          accent: "#00FFFF",
         },
         aqua: {
-          cover: "#001AFF",
+          default: "#001AFF",
           primary: "#FF0000",
           secondary: "#FFF",
+          accent: "#00FFFF",
         },
         nothing: {
-          cover: "#FFF",
-          primary: "#231F20",
-          secondary: "#FAFF00",
+          default: "#FFF",
+          primary: "#FAFF00",
+          secondary: "#231F20",
+          accent: "#00FFFF",
         },
-        "blue-clue": "#00FFFF",
-        "yellow-fellow": "#FAFF00",
-        "dark-park": "#231F20",
-        "aqua-dope": "#001AFF",
-        "orange-range": "#FF4937",
-        "red-bread": "#FF0000",
       },
       animation: {
         'bounce-x': 'bounce-x 1s infinite'
