@@ -1,5 +1,5 @@
 <div class="mt-7">
-  <%= render "social_links.html" %>
+  <%= render "social_links.html", conn: @conn %>
   <div class="mt-7 flex justify-between">
     <p class={"heading text-#{@conn.assigns.palette}-primary"}>EPIC CRAZY<br> GAME CHANGER<br> SECRETS</p>
     <img class="hidden lg:inline lg:w-72 xl:w-96" src={Routes.static_path(@conn, "/images/arrow.svg")} alt="Arrow">

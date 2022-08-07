@@ -1,5 +1,14 @@
-<h1 class={"heading text-#{@conn.assigns.palette}-primary"}><%= @user.username %></h1>
-<p class={"para max-w-sm whitespace-pre-line text-#{@conn.assigns.palette}-secondary"}><%= @user.credo %></p>
+<div class="mt-10 lg:mt-0 flex justify-between items-center flex-wrap">
+  <h1 class={"heading text-#{@conn.assigns.palette}-primary"}><%= @user.username %></h1>
+  <div class="flex gap-3 lg:gap-7">
+    <%= for link <- @links do %>
+      <a href="#">
+        <%= render "icon.html", conn: @conn, name: hostname_of(link.url), classes: "w-7 h-7 lg:w-16 lg:h-16 xl:w-20 xl:h-20 group hover:scale-125 transition" %>
+      </a>
+    <% end %>
+  </div>
+</div>
+<p class={"mt-5 para max-w-sm whitespace-pre-line text-#{@conn.assigns.palette}-secondary"}><%= @user.credo %></p>
 
 <div class="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
   <%= for post <- @posts do %>
@@ -13,7 +22,7 @@
         <img x-show={"shown#{post.id}"} x-transition.duration.300ms x-bind:src={"src#{post.id}"} class="object-cover w-full hover:brightness-125 hover:scale-105 transition ease-in-out duration-300">
       </div>
       <p class={"subheading mt-3 group-hover:text-#{@conn.assigns.palette}-accent"}><%= post.title %></p>
-      <p class="para mt-1"><%= post.description %></p>
+      <p class="para mt-1 max-w-lg"><%= post.description %></p>
     </a>
   <% end %>
 </div>

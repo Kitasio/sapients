@@ -18,7 +18,11 @@ module.exports = {
     {
       pattern: /text-(brick|sun|aqua|nothing)-(primary|secondary|accent)/,
       variants: ['hover', 'group-hover'],
-    }
+    },
+    {
+      pattern: /fill-(brick|sun|aqua|nothing)-(secondary|accent)/,
+      variants: ['group-hover'],
+    },
   ],
   theme: {
     extend: {

@@ -1,5 +1,6 @@
 defmodule SapientsWeb.PageView do
   use SapientsWeb, :view
+  use Phoenix.Component
 
   alias Sapients.Media
 
