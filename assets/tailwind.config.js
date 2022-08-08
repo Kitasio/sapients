@@ -20,7 +20,7 @@ module.exports = {
       variants: ['hover', 'group-hover'],
     },
     {
-      pattern: /fill-(brick|sun|aqua|nothing)-(tertiary|accent)/,
+      pattern: /fill-(brick|sun|aqua|nothing)-(tertiary|accent|secondary)/,
       variants: ['group-hover'],
     },
   ],

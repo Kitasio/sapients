@@ -19,6 +19,6 @@ defmodule SapientsWeb.PageController do
   def pick_palette(conn, _opts) do
     colors = [:nothing, :brick, :sun, :aqua] |> Enum.random()
 
-    assign(conn, :palette, colors)
+    conn |> assign(:palette, colors)
   end
 end
