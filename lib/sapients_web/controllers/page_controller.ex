@@ -17,8 +17,24 @@ defmodule SapientsWeb.PageController do
   end
 
   def pick_palette(conn, _opts) do
-    colors = [:nothing, :brick, :sun, :aqua] |> Enum.random()
+    colors = [:nothing, :brick, :sun, :aqua]
+    session = Plug.Conn.get_session(conn)
 
-    conn |> assign(:palette, colors)
+    unless session |> Map.has_key?("palette") do
+      selected_palette = colors |> Enum.random()
+
+      conn
+      |> put_session(:palette, selected_palette)
+      |> assign(:palette, selected_palette)
+    else
+      %{"palette" => prev_color} = Plug.Conn.get_session(conn)
+
+      colors = List.delete(colors, prev_color)
+      selected_palette = colors |> Enum.random()
+
+      conn
+      |> put_session(:palette, selected_palette)
+      |> assign(:palette, selected_palette)
+    end
   end
 end
