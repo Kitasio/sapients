@@ -28,7 +28,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: [
-          '"Helvetica Neue"'
+          '"Helvetica Neue"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Arial', '"Noto Sans"', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"', '"Noto Color Emoji"'
         ]
       },
       colors: {
