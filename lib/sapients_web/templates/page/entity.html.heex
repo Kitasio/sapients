@@ -8,7 +8,7 @@
   <div class="flex gap-4">
     <%= for link <- @links do %>
       <a href={link.url} target="_blank">
-        <%= render "icon.html", conn: @conn, name: hostname_of(link.url), classes: "w-5 h-5 group hover:scale-125 transition" %>
+        <%= render "icon.html", conn: @conn, name: hostname_of(link.url), classes: "w-5 h-5 group lg:hover:scale-125 transition" %>
       </a>
     <% end %>
   </div>

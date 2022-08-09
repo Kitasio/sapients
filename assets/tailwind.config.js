@@ -21,7 +21,7 @@ module.exports = {
     },
     {
       pattern: /fill-(brick|sun|aqua|nothing)-(tertiary|accent|secondary|primary)/,
-      variants: ['group-hover'],
+      variants: ['group-hover', 'lg'],
     },
   ],
   theme: {
