@@ -6,7 +6,8 @@ defmodule SapientsWeb.PageController do
 
   def index(conn, _params) do
     users = Accounts.list_users_for_index()
-    render(conn, "index.html", users: users)
+    links = Application.get_env(:sapients, :social_links)
+    render(conn, "index.html", users: users, links: links)
   end
 
   def show(conn, %{"id" => id}) do

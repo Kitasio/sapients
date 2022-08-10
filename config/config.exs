@@ -59,7 +59,12 @@ config :tailwind, version: "3.1.6", default: [
 
 config :sapients,
   imagekit_url: "https://ik.imagekit.io/soulgenesis",
-  bucket: "sapimedia"
+  bucket: "sapimedia",
+  social_links: [
+      "https://twitter.com/sapientsart",
+      "https://behance.net/sapients",
+      "https://t.me/sapientschannel",
+  ]
 
 config :ex_aws,
   debug_requests: true,

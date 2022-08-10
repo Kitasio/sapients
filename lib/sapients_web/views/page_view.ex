@@ -26,10 +26,13 @@ defmodule SapientsWeb.PageView do
     case size do
       1 ->
         "tr:w-640"
+
       2 ->
         "tr:w-1024"
+
       3 ->
         "tr:w-1536"
+
       _ ->
         "tr:w-1024"
     end
@@ -39,6 +42,7 @@ defmodule SapientsWeb.PageView do
     case order do
       1 ->
         "tr:w-1536"
+
       _ ->
         "tr:w-640"
     end

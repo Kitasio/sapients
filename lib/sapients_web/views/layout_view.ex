@@ -18,6 +18,10 @@ defmodule SapientsWeb.LayoutView do
     end
   end
 
+  def list_links() do
+    Application.get_env(:sapients, :social_links)
+  end
+
   def copyright() do
     "© #{year()} Sapients Art"
   end
