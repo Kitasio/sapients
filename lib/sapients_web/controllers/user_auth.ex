@@ -140,11 +140,19 @@ defmodule SapientsWeb.UserAuth do
   end
 
   def require_authenticated_admin(conn, _opts) do
-    if conn.assigns[:current_user].is_admin do
-      conn
+    if conn.assigns[:current_user] do
+      if conn.assigns[:current_user].is_admin do
+        conn
+      else
+        conn
+        |> put_flash(:error, "You cannot access this page.")
+        |> maybe_store_return_to()
+        |> redirect(to: Routes.user_session_path(conn, :new))
+        |> halt()
+      end
     else
       conn
-      |> put_flash(:error, "You must cannot access this page.")
+      |> put_flash(:error, "You must log in to access this page.")
       |> maybe_store_return_to()
       |> redirect(to: Routes.user_session_path(conn, :new))
       |> halt()

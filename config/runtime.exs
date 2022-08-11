@@ -52,7 +52,7 @@ if config_env() == :prod do
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :sapients, SapientsWeb.Endpoint,
-    url: [host: host, port: 443, scheme: "https"],
+    url: [host: "sapients.art", port: 80],
     http: [
       # Enable IPv6 and bind on all interfaces.
       # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
