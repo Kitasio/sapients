@@ -19,7 +19,7 @@ defmodule SapientsWeb.PageView do
   def hostname_of(link) do
     uri = link |> URI.parse()
     %URI{host: host} = uri
-    host |> String.split(".") |> List.first()
+    host |> String.split(".") |> Enum.at(-2)
   end
 
   defp choose_width(size) do
