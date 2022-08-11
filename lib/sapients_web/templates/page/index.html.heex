@@ -15,8 +15,8 @@
     <p>Sapients is a digital art group for programmers, graphic designers, and other creatives. We believe in the power of art to change the world, and we want to use our skills to make a difference.</p>
   </div>
   <%= for user <- @users do %>
-      <%= if number_of_posts(user) > 3 do %>
-        <%= render "entity.html", conn: @conn, arrow: Routes.static_path(@conn, "/images/arrow-action.svg"), links: links(user), posts: posts(user), user: user, userlink: Routes.page_path(@conn, :show, user.id) %>
+      <%= if number_of_posts(user) > 0 do %>
+        <%= render "entity.html", conn: @conn, links: links(user), posts: posts(user), user: user, userlink: Routes.page_path(@conn, :show, user.id) %>
       <% end %>
   <% end %>
   <p class={"py-7 text-#{@conn.assigns.palette}-primary font-bold text-4xl sm:text-6xl md:text-7xl xl:text-8xl"}>THATS IT, FOLKS.</p>
