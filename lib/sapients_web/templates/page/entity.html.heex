@@ -15,14 +15,14 @@
 </div>
 
 <div class="flex flex-wrap">
-  <%= if number_of_posts(@user) == 1 || number_of_posts(@user) >= 4 do %>
+  <%= if number_of_posts(@user) == 1 do %>
       <%= for post <- @posts do %>
         <a
-            class="w-1/2 lg:w-1/3 first:w-full overflow-hidden last:hidden last:lg:inline"
+            class="w-full overflow-hidden"
             href={post.url}
             target="_blank"
             x-data={"{ shown#{post.id}: false, src#{post.id}: '' }"}
-            x-intersect={"shown#{post.id} = true, src#{post.id} = '#{insert_image_tr_index(post.image, post.order)}'"}
+            x-intersect={"shown#{post.id} = true, src#{post.id} = '#{insert_image_tr_index(post.image, 1)}'"}
         >
           <img x-show={"shown#{post.id}"} x-transition class="aspect-video hover:brightness-125 hover:scale-105 transition ease-in-out duration-300 object-cover w-full" x-bind:src={"src#{post.id}"} alt="">
         </a>
@@ -47,6 +47,20 @@
       <%= for post <- @posts do %>
         <a
             class="sm:w-1/2 first:w-full overflow-hidden"
+            href={post.url}
+            target="_blank"
+            x-data={"{ shown#{post.id}: false, src#{post.id}: '' }"}
+            x-intersect={"shown#{post.id} = true, src#{post.id} = '#{insert_image_tr_index(post.image, post.order)}'"}
+        >
+          <img x-show={"shown#{post.id}"} x-transition class="aspect-video hover:brightness-125 hover:scale-105 transition ease-in-out duration-300 object-cover w-full" x-bind:src={"src#{post.id}"} alt="">
+        </a>
+      <% end %>
+  <% end %>
+
+  <%= if number_of_posts(@user) >= 4 do %>
+      <%= for post <- @posts do %>
+        <a
+            class="sm:w-1/2 lg:w-1/3 first:w-full overflow-hidden last:hidden last:lg:inline"
             href={post.url}
             target="_blank"
             x-data={"{ shown#{post.id}: false, src#{post.id}: '' }"}
