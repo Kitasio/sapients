@@ -63,6 +63,7 @@ defmodule Sapients.Accounts do
   def list_regular_users() do
     User
     |> list_not_admins_query()
+    |> order_by_id_query()
     |> Repo.all()
   end
 
@@ -70,7 +71,16 @@ defmodule Sapients.Accounts do
     User
     |> list_not_admins_query()
     |> list_unless_hidden_query()
+    |> order_by_order_query()
     |> Repo.all()
+  end
+
+  def order_by_id_query(query) do
+    from(u in query, order_by: [desc: u.id])
+  end
+
+  def order_by_order_query(query) do
+    from(u in query, order_by: [asc: u.order])
   end
 
   defp list_unless_hidden_query(query) do

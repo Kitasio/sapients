@@ -25,10 +25,22 @@ defmodule SapientsWeb.AdminLive do
 
     <h2>Users</h2>
 
+    <div class="grid grid-cols-4 mb-3 text-xl font-bold gap-5 place-content-center">
+      <p>Email</p>
+      <p>Username</p>
+      <p>Is Visible?</p>
+      <p>Order</p>
+    </div>
     <%= for user <- @users do %>
-        <div>
-            <span><%= user.username %> | <%= user.email %></span>
+        <div class="grid grid-cols-4 gap-5 place-content-center">
+            <span><%= user.email %></span>
+            <span><%= user.username %></span>
             <a href="#" phx-click="toggle_hide" phx-value-user_id={user.id}><%= is_hidden(user) %></a>
+            <div class="flex gap-5">
+              <a href="#" phx-click="order_down" phx-value-user_id={user.id}>-</a>
+              <%= user.order %>
+              <a href="#" phx-click="order_up" phx-value-user_id={user.id}>+</a>
+            </div>
         </div>
     <% end %>
     """
@@ -37,6 +49,32 @@ defmodule SapientsWeb.AdminLive do
   def handle_event("toggle_hide", %{"user_id" => user_id}, socket) do
     user = Accounts.get_user!(user_id)
     toggle_hide(user)
+
+    {
+      :noreply,
+      assign(
+        socket,
+        users: list_users()
+      )
+    }
+  end
+
+  def handle_event("order_up", %{"user_id" => user_id}, socket) do
+    user = Accounts.get_user!(user_id)
+    order_up(user)
+
+    {
+      :noreply,
+      assign(
+        socket,
+        users: list_users()
+      )
+    }
+  end
+
+  def handle_event("order_down", %{"user_id" => user_id}, socket) do
+    user = Accounts.get_user!(user_id)
+    order_down(user)
 
     {
       :noreply,
@@ -57,6 +95,14 @@ defmodule SapientsWeb.AdminLive do
     else
       Accounts.update_user(user, %{hidden: true})
     end
+  end
+
+  def order_up(user) do
+    Accounts.update_user(user, %{order: user.order + 1})
+  end
+
+  def order_down(user) do
+    Accounts.update_user(user, %{order: user.order - 1})
   end
 
   def is_hidden(user) do
