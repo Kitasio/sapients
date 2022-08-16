@@ -16,7 +16,7 @@
   </div>
   <%= for user <- @users do %>
       <%= if number_of_posts(user) > 0 do %>
-        <%= render "entity.html", conn: @conn, links: links(user), posts: posts(user), user: user, userlink: Routes.page_path(@conn, :show, user.id) %>
+        <%= render "entity.html", conn: @conn, links: links(user), posts: posts(user), user: user, userlink: Routes.page_path(@conn, :show, user.username) %>
       <% end %>
   <% end %>
   <p class={"py-7 text-#{@conn.assigns.palette}-primary font-bold text-4xl sm:text-6xl md:text-7xl xl:text-8xl"}>THATS IT, FOLKS.</p>

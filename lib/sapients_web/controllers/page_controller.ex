@@ -10,8 +10,8 @@ defmodule SapientsWeb.PageController do
     render(conn, "index.html", users: users, links: links)
   end
 
-  def show(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
+  def show(conn, %{"username" => username}) do
+    user = Accounts.get_user_by_username(username)
     posts = Media.list_user_posts(user)
     links = Media.list_user_links(user)
     render(conn, "show.html", posts: posts, links: links, user: user)

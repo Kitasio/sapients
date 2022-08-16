@@ -60,6 +60,10 @@ defmodule Sapients.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_user_by_username(username) do
+    Repo.get_by!(User, username: username)
+  end
+
   def list_regular_users() do
     User
     |> list_not_admins_query()

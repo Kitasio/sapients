@@ -23,7 +23,7 @@ defmodule SapientsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/sapient/:id", PageController, :show
+    get "/sapient/:username", PageController, :show
     get "/contact", ContactController, :index
     get "/about", AboutController, :index
   end
