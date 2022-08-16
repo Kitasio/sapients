@@ -24,6 +24,9 @@ defmodule SapientsWeb.PageView do
 
   defp choose_width(size) do
     case size do
+      0 ->
+        "tr:w-640"
+
       1 ->
         "tr:w-1024"
 
@@ -40,6 +43,9 @@ defmodule SapientsWeb.PageView do
 
   defp choose_width_index(order) do
     case order do
+      0 ->
+        "tr:w-640"
+
       1 ->
         "tr:w-1920"
 
