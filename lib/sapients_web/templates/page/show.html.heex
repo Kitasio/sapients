@@ -2,7 +2,7 @@
   <h1 class={"heading text-#{@conn.assigns.palette}-primary"}><%= @user.username %></h1>
   <div class="flex gap-3 lg:gap-7">
     <%= for link <- @links do %>
-      <a href="#">
+      <a href={link.url} target="_blank">
         <%= render "icon.html", conn: @conn, name: hostname_of(link.url), classes: "w-7 h-7 lg:w-16 lg:h-16 xl:w-20 xl:h-20 group hover:scale-125 transition" %>
       </a>
     <% end %>
