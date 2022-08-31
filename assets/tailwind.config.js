@@ -13,14 +13,14 @@ module.exports = {
     'lg:col-span-2',
     'lg:col-span-3',
     {
-      pattern: /bg-(brick|sun|aqua|nothing)-default/,
+      pattern: /bg-(brick|sun|aqua|nothing|teal|navy|maroon|lime)-default/,
     },
     {
-      pattern: /text-(brick|sun|aqua|nothing)-(primary|secondary|accent)/,
+      pattern: /text-(brick|sun|aqua|nothing|teal|navy|maroon|lime)-(primary|secondary|accent)/,
       variants: ['hover', 'group-hover'],
     },
     {
-      pattern: /fill-(brick|sun|aqua|nothing)-(tertiary|accent|secondary|primary)/,
+      pattern: /fill-(brick|sun|aqua|nothing|teal|navy|maroon|lime)-(tertiary|accent|secondary|primary)/,
       variants: ['group-hover', 'lg'],
     },
   ],
@@ -59,6 +59,34 @@ module.exports = {
           secondary: "#231F20",
           tertiary: "#00FFFF",
           accent: "#FAFF00",
+        },
+        teal: {
+          default: "#008080",
+          primary: "#FFF",
+          secondary: "#231F20",
+          tertiary: "#FAFF00",
+          accent: "#FFF",
+        },
+        navy: {
+          default: "#000080",
+          primary: "#FFF",
+          secondary: "#231F20",
+          tertiary: "#FAFF00",
+          accent: "#FFF",
+        },
+        maroon: {
+          default: "#800000",
+          primary: "#FFF",
+          secondary: "#231F20",
+          tertiary: "#00FFFF",
+          accent: "#FFF",
+        },
+        lime: {
+          default: "#00FF00",
+          primary: "#800000",
+          secondary: "#FFF",
+          tertiary: "#FAFF00",
+          accent: "#800000",
         },
       },
       animation: {

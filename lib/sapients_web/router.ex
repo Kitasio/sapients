@@ -108,6 +108,8 @@ defmodule SapientsWeb.Router do
     resources "/posts", PostController
     resources "/links", LinkController
 
+    live "/sd", SdLive.Index
+
     live "/images", ImageLive.Index, :index
     live "/images/new", ImageLive.Index, :new
     live "/images/:id/edit", ImageLive.Index, :edit

@@ -18,7 +18,7 @@ defmodule SapientsWeb.PageController do
   end
 
   def pick_palette(conn, _opts) do
-    colors = [:nothing, :brick, :sun, :aqua]
+    colors = [:nothing, :brick, :sun, :aqua, :lime] #  :teal, :navy, :maroon,
     session = Plug.Conn.get_session(conn)
 
     unless session |> Map.has_key?("palette") do
