@@ -55,6 +55,7 @@ defmodule Sapients.MixProject do
       {:ex_aws_s3, "~> 2.3"},
       {:hackney, "~> 1.18"},
       {:sweet_xml, "~> 0.7.3"},
+      {:httpoison, "~> 1.8"},
     ]
   end
 

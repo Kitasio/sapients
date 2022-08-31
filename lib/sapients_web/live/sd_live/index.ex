@@ -19,27 +19,52 @@ defmodule SapientsWeb.SdLive.Index do
 
   def render(assigns) do
     ~H"""
-    <h1><%= @title %></h1>
+    <div class="container mx-auto mt-10">
+      <h1><%= @title %></h1>
 
-    <.form let={f} for={@changeset} phx-change="validate" phx-submit="save">
-      <%= label f, :title %>
-      <%= text_input f, :title %>
-      <%= error_tag f, :title %>
+      <.form let={f} for={@changeset} phx-change="validate" phx-submit="save">
+        <%= label f, :title %>
+        <%= text_input f, :title %>
+        <%= error_tag f, :title %>
 
-      <%= label f, :description %>
-      <%= textarea f, :description %>
-      <%= error_tag f, :description %>
+        <%= label f, :description %>
+        <%= textarea f, :description %>
+        <%= error_tag f, :description %>
 
-      <%= submit "Save" %>
-    </.form>
+        <%= submit "Save" %>
+      </.form>
 
-    <%= for cover <- @book_covers do %>
-      <div class="flex flex-col">
-        <p><%= cover.title %></p>
-        <p><%= cover.description %></p>
-      </div>
-    <% end %>
+      <%= for cover <- @book_covers do %>
+        <button phx-click="generate" phx-disable-with="Generating..." phx-value-cover_id={cover.id}>Generate covers</button>
+        <div class="mb-10 flex flex-col">
+          <p class="subheading"><%= cover.title %></p>
+          <p><%= cover.description %></p>
+          <%= if cover.img_urls do %>
+            <div class="columns-2 space-y-2 gap-2">
+              <%= for url <- cover.img_urls do %>
+                <img class="w-full" src={url} alt="">
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
     """
+  end
+
+  def handle_event("generate", %{"cover_id" => cover_id}, socket) do
+    book = AI.get_book_cover!(cover_id)
+    img_urls = book.description |> gen_covers()
+
+    case AI.update_book_cover(book, %{img_urls: img_urls}) do
+      {:ok, _book} ->
+        {:noreply,
+         socket
+         |> assign(book_covers: list_covers(socket.assigns.current_user))}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        {:noreply, assign(socket, changeset: changeset)}
+    end
   end
 
   def handle_event("validate", %{"book_cover" => params}, socket) do
@@ -66,5 +91,11 @@ defmodule SapientsWeb.SdLive.Index do
 
   def list_covers(user) do
     AI.list_user_covers(user)
+  end
+
+  def gen_covers(prompt) do
+    prompt
+    |> BookCoverGenerator.description_to_cover_idea(System.get_env("OAI_TOKEN"))
+    |> BookCoverGenerator.diffuse(1, System.get_env("REPLICATE_TOKEN"))
   end
 end

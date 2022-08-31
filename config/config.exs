@@ -60,6 +60,8 @@ config :tailwind, version: "3.1.6", default: [
 config :sapients,
   imagekit_url: "https://ik.imagekit.io/soulgenesis",
   bucket: "sapimedia",
+  oai_token: System.get_env("OAI_TOKEN"),
+  replicate_token: System.get_env("REPLICATE_TOKEN"),
   social_links: [
       "https://twitter.com/sapientsart",
       "https://behance.net/sapients",
