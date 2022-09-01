@@ -60,6 +60,7 @@ defmodule Sapients.AI do
   def list_user_covers(%Accounts.User{} = user) do
     BookCover
     |> user_covers_query(user)
+    |> order_by_date_insert()
     |> Repo.all()
   end
 
@@ -80,6 +81,10 @@ defmodule Sapients.AI do
     BookCover
     |> user_covers_query(user)
     |> Repo.get!(id)
+  end
+
+  defp order_by_date_insert(query) do
+    from(p in query, order_by: [desc: :inserted_at])
   end
 
   defp limit_covers_query(query, amount) do

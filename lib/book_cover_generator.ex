@@ -6,6 +6,7 @@ defmodule BookCoverGenerator do
     do: raise("OAI_TOKEN was not set\nVisit https://beta.openai.com/account/api-keys to get it")
 
   def description_to_cover_idea(prompt, oai_token) do
+    IO.puts("Starting cover idea generation...")
     # Set Open AI endpoint and access token
     endpoint = "https://api.openai.com/v1/completions"
 
@@ -38,6 +39,8 @@ defmodule BookCoverGenerator do
     do: raise("REPLICATE_TOKEN was not set\nVisit https://replicate.com/account to get it")
 
   def diffuse(prompt, amount, replicate_token) do
+    IO.puts("Starting stable diffusion...")
+
     sd_params = %{
       version: "be04660a5b93ef2aff61e3668dedb4cbeb14941e62a3fd5998364a32d613e35e",
       input: %{prompt: prompt, num_outputs: amount}
@@ -55,13 +58,40 @@ defmodule BookCoverGenerator do
     check_for_output(generation_url, headers, options, 20)
   end
 
+  def upscale(_image, nil),
+    do: raise("REPLICATE_TOKEN was not set\nVisit https://replicate.com/account to get it")
+
+  def upscale(image, replicate_token) do
+    IO.puts("Starting the upscale...")
+
+    sd_params = %{
+      version: "9d91795e944f3a585fa83f749617fc75821bea8b323348f39cf84f8fd0cbc2f7",
+      input: %{image: image}
+    }
+
+    body = Jason.encode!(sd_params)
+    headers = [Authorization: "Token #{replicate_token}", "Content-Type": "application/json"]
+    options = [timeout: 50_000, recv_timeout: 50_000]
+
+    endpoint = "https://api.replicate.com/v1/predictions"
+
+    %Response{body: res_body} = HTTPoison.post!(endpoint, body, headers, options)
+    %{"urls" => %{"get" => generation_url}} = res_body |> Jason.decode!()
+
+    check_for_output(generation_url, headers, options, 20)
+  end
+
+  # Takes a list of image urls and saves them to DO spaces returning an imagekit url
   def save_to_spaces([]), do: []
 
   def save_to_spaces([url | img_list]) do
+    IO.puts("Saving #{url} to spaces...")
+    options = [timeout: 50_000, recv_timeout: 50_000]
+
     imagekit_url = Application.get_env(:sapients, :imagekit_url)
     bucket = Application.get_env(:sapients, :bucket)
 
-    %HTTPoison.Response{body: image_bytes} = HTTPoison.get!(url)
+    %HTTPoison.Response{body: image_bytes} = HTTPoison.get!(url, [], options)
     filename = "#{Ecto.UUID.generate()}.png"
 
     ExAws.S3.put_object(bucket, filename, image_bytes)
@@ -89,17 +119,17 @@ defmodule BookCoverGenerator do
 
   defp check_for_output(generation_url, headers, options, num_of_tries) do
     %Response{body: res} = HTTPoison.get!(generation_url, headers, options)
-    %{"output" => image_list} = res |> Jason.decode!()
+    # %{"output" => image_list} = res |> Jason.decode!()
+    res = res |> Jason.decode!()
+    IO.inspect(res["output"])
 
-    # IO.puts("Attempts left: #{num_of_tries}")
-
-    case image_ready?(image_list, num_of_tries) do
+    case image_ready?(res["output"], num_of_tries) do
       false ->
-        :timer.sleep(1000)
+        :timer.sleep(2000)
         check_for_output(generation_url, headers, options, num_of_tries - 1)
 
       true ->
-        image_list
+        res
     end
   end
 

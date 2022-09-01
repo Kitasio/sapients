@@ -9,6 +9,7 @@ defmodule Sapients.AI.BookCover do
     field :source_url, :string
     field :tags, {:array, :string}
     field :title, :string
+    field :sd_artefacts, {:array, :string}
 
     belongs_to :user, Sapients.Accounts.User
 
@@ -18,7 +19,7 @@ defmodule Sapients.AI.BookCover do
   @doc false
   def changeset(book_cover, attrs) do
     book_cover
-    |> cast(attrs, [:img_urls, :source_url, :title, :author, :description, :tags])
+    |> cast(attrs, [:img_urls, :source_url, :title, :author, :description, :tags, :sd_artefacts])
     |> validate_required([:title])
   end
 end
