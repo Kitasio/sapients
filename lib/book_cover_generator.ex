@@ -2,7 +2,9 @@ defmodule BookCoverGenerator do
   alias HTTPoison.Response
 
   # Returns a prompt for stable diffusion
-  def description_to_cover_idea(_prompt, nil), do: raise "OAI_TOKEN was not set\nVisit https://beta.openai.com/account/api-keys to get it"
+  def description_to_cover_idea(_prompt, nil),
+    do: raise("OAI_TOKEN was not set\nVisit https://beta.openai.com/account/api-keys to get it")
+
   def description_to_cover_idea(prompt, oai_token) do
     # Set Open AI endpoint and access token
     endpoint = "https://api.openai.com/v1/completions"
@@ -31,24 +33,10 @@ defmodule BookCoverGenerator do
     |> oai_response_text()
   end
 
-  defp translate_to_english(prompt, endpoint, headers, options) do
-    if is_english?(prompt) do
-      prompt
-    else
-      IO.puts("Translating text...")
-      oai_params = %OAIParams{prompt: "Translate this to English: \n#{prompt}"}
-      body = Jason.encode!(oai_params)
-      %Response{body: res_body} = HTTPoison.post!(endpoint, body, headers, options)
-      res_body
-    end
-  end
-
-  def is_english?(input) do
-    input |> String.graphemes() |> List.first() |> byte_size() < 2
-  end
-
   # Returns a list of image links
-  def description_to_cover_idea(_prompt, _amount, nil), do: raise "REPLICATE_TOKEN was not set\nVisit https://replicate.com/account to get it"
+  def diffuse(_prompt, _amount, nil),
+    do: raise("REPLICATE_TOKEN was not set\nVisit https://replicate.com/account to get it")
+
   def diffuse(prompt, amount, replicate_token) do
     sd_params = %{
       version: "be04660a5b93ef2aff61e3668dedb4cbeb14941e62a3fd5998364a32d613e35e",
@@ -63,9 +51,40 @@ defmodule BookCoverGenerator do
 
     %Response{body: res_body} = HTTPoison.post!(endpoint, body, headers, options)
     %{"urls" => %{"get" => generation_url}} = res_body |> Jason.decode!()
-    IO.inspect(res_body, label: "The initial post response")
 
     check_for_output(generation_url, headers, options, 20)
+  end
+
+  def save_to_spaces([]), do: []
+
+  def save_to_spaces([url | img_list]) do
+    imagekit_url = Application.get_env(:sapients, :imagekit_url)
+    bucket = Application.get_env(:sapients, :bucket)
+
+    %HTTPoison.Response{body: image_bytes} = HTTPoison.get!(url)
+    filename = "#{Ecto.UUID.generate()}.png"
+
+    ExAws.S3.put_object(bucket, filename, image_bytes)
+    |> ExAws.request!()
+
+    image_url = Path.join(imagekit_url, filename)
+    [image_url | save_to_spaces(img_list)]
+  end
+
+  defp translate_to_english(prompt, endpoint, headers, options) do
+    if is_english?(prompt) do
+      prompt
+    else
+      IO.puts("Translating text...")
+      oai_params = %OAIParams{prompt: "Translate this to English: \n#{prompt}"}
+      body = Jason.encode!(oai_params)
+      %Response{body: res_body} = HTTPoison.post!(endpoint, body, headers, options)
+      res_body
+    end
+  end
+
+  def is_english?(input) do
+    input |> String.graphemes() |> List.first() |> byte_size() < 2
   end
 
   defp check_for_output(generation_url, headers, options, num_of_tries) do
