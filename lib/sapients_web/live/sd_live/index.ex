@@ -62,7 +62,10 @@ defmodule SapientsWeb.SdLive.Index do
 
   def handle_event("upscale", %{"cover_url" => cover_url, "cover_id" => cover_id}, socket) do
     book = AI.get_book_cover!(cover_id)
-    %{"output" => img_urls} = BookCoverGenerator.upscale(cover_url, System.get_env("REPLICATE_TOKEN"))
+
+    %{"output" => img_urls} =
+      BookCoverGenerator.upscale(cover_url, System.get_env("REPLICATE_TOKEN"))
+
     [%{"file" => file} | _] = img_urls
 
     img_urls = [file] ++ book.img_urls

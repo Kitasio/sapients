@@ -7,7 +7,7 @@ defmodule BookCoverGenerator do
 
   def description_to_cover_idea(prompt, oai_token) do
     IO.puts("Starting cover idea generation...")
-    # Set Open AI endpoint and access token
+    # Set Open AI endpoint
     endpoint = "https://api.openai.com/v1/completions"
 
     # Set headers and options

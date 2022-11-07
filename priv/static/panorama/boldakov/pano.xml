@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tour appversion="6.1.10" apprev="18007" start="node33">
+  <panorama id="node33" hideabout="1">
+    <input width="2000" levelbiashidpi="0.400" levelingpitch="0" height="2000" leveltilesize="500" levelbias="0.400" leveltileurl="tiles/boldakov_warehouse/c%c_l%r_%y_%x.jpg" levelingroll="0" overlap="1">
+      <level width="2000" predecode="0" height="2000" preload="0"/>
+      <level width="1000" predecode="0" height="1000" preload="0"/>
+      <level width="500" predecode="1" height="500" preload="1"/>
+      <preview color="0x808080" strip="1"/>
+    </input>
+    <view pannorth="0" fovmode="0">
+      <start projection="4" pan="83.6424" fov="70" tilt="2.27534"/>
+      <flyin projection="9" pan="0" fov="170" tilt="-90"/>
+      <min fovpixel="1" pan="0" tilt="-90"/>
+      <max fovstereographic="270" fovfisheye="360" pan="360" fov="70" tilt="90" scaletofit="1"/>
+    </view>
+    <userdata latitude="" info="" customnodeid="" datetime="18.02.2020 17:07" comment="" copyright="" longitude="" description="" title="" tags="tour|enfused" source="" heading="0" author="" nodeid="node33"/>
+    <hotspots width="270" height="50" wordwrap="1">
+      <label width="270" enabled="1" backgroundalpha="1" bordercolor="0x000000" background="1" textalpha="1" height="50" backgroundcolor="0xffffff" border="1" textcolor="0xff0000" borderradius="11" wordwrap="1" borderalpha="1"/>
+      <polystyle backgroundalpha="0.25098" bordercolor="0xffe040" backgroundcolor="0xff1134" mode="0" handcursor="1" borderalpha="1"/>
+    </hotspots>
+    <media/>
+    <transition zoomafterinfov="90" blendcolor="0x000000" zoomin="0" enabled="1" softedge="0" zoomafteroutfov="20" zoomoutpause="1" zoomout="0" zoomfov="20" type="crossdissolve" blendtime="1" zoomspeed="2"/>
+    <autorotate enabled="1" speed="0.080" nodefilter="" delay="5.00" returntohorizon="0.000" startloaded="0" nodedelay="0.00" noderandom="1" useanimation="0"/>
+    <animation animsequence="Animation01" syncanimationwithvideo="0" useinautorotation="0"/>
+    <control simulatemass="1" lockedmouse="0" lockedwheel="0" dblclickfullscreen="1" invertwheel="0" lockedkeyboardzoom="0" rubberband="0" speedwheel="1" contextprojections="0" sensitivity="9" contextfullscreen="0" lockedkeyboard="0" invertcontrol="1" hideabout="1">
+      <menulink text="Виртуальные туры и панорамы интерьеров" url="http://hi360v.com"/>
+    </control>
+  </panorama>
+  <masternode>
+    <userdata latitude="" info="" customnodeid="" datetime="" comment="" copyright="" longitude="" description="" title="" tags="" source="" heading="0" author="" nodeid="master"/>
+  </masternode>
+</tour>

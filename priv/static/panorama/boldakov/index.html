@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<style type="text/css" title="Default">
+			/* fullscreen */
+			html {
+				height:100%;
+			}
+			body {
+				height:100%;
+				margin: 0px;
+				overflow:hidden; /* disable scrollbars */
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* remove highlight on tab for iOS/Android */
+			}
+			/* fix for scroll bars on webkit & >=Mac OS X Lion */ 
+			::-webkit-scrollbar {
+				background-color: rgba(0,0,0,0.5);
+				width: 0.75em;
+			}
+			::-webkit-scrollbar-thumb {
+    			background-color:  rgba(255,255,255,0.5);
+			}
+		</style>	
+	</head>
+	<body>
+<!-- - - - - - - 8<- - - - - - cut here - - - - - 8<- - - - - - - -->
+		<script type="text/javascript" src="pano2vr_player.js">
+		</script>
+		<script type="text/javascript" src="skin.js">
+		</script>
+		<script src="webxr/three.min.js"></script>
+		<script src="webxr/webxr-polyfill.min.js"></script>
+		<div id="container" style="width:100%;height:100%;overflow:hidden;">
+		<br>Loading...<br><br>
+		</div>
+		<script type="text/javascript">
+		function parseParams(paramsString, params) {
+			paramsString = paramsString.substring(1);
+			var firstSeparatorPos = paramsString.indexOf(",");
+			if (firstSeparatorPos != -1) {
+				params.startNode = paramsString.slice(0, firstSeparatorPos);
+				var viewingParamsString = paramsString.slice(firstSeparatorPos + 1);
+				var viewingParams = viewingParamsString.split(",");
+				if (viewingParams.length >= 3) {
+					var startView = {};
+					startView["pan"] = viewingParams[0];
+					startView["tilt"] = viewingParams[1];
+					startView["fov"] = viewingParams[2];
+					if (viewingParams.length >= 4) {
+						startView["projection"] = viewingParams[3];
+					}
+					params.startView = startView;
+				}
+			} else {
+				params.startNode = paramsString;
+				params.startView = "";
+			}
+		}
+		var params = {};
+		parseParams(document.location.hash, params);
+		var startNode = params.startNode;
+		var startView = params.startView;
+		if (("onhashchange" in window) && (!(/MSIE (\d+\.\d+);/.test(navigator.userAgent)))) {
+			window.onhashchange = function () {
+				parseParams(window.location.hash, params);
+				pano.openNext('{' + params.startNode + '}', params.startView);
+         	}
+	    } else {
+        	var lastHash = window.location.hash;
+        	window.setInterval(function () {
+	           	if (window.location.hash != lastHash) {
+   	        		lastHash = window.location.hash;
+					parseParams(window.location.hash, params);
+					pano.openNext('{' + params.startNode + '}', params.startView);
+        	   	}
+        	}, 100);
+		}
+	
+			// create the panorama player with the container
+			pano=new pano2vrPlayer("container");
+			pano.startNode = startNode;
+			pano.startView = startView;
+			// add the skin object
+			skin=new pano2vrSkin(pano);
+			// load the configuration
+			panorama='<?xml version="1.0" encoding="UTF-8"?>';
+			panorama+='<tour appversion="6.1.10" apprev="18007" start="node33">';
+			panorama+='  <panorama id="node33" hideabout="1">';
+			panorama+='    <input width="2000" levelbiashidpi="0.400" levelingpitch="0" height="2000" leveltilesize="500" levelbias="0.400" leveltileurl="tiles/boldakov_warehouse/c%c_l%r_%y_%x.jpg" levelingroll="0" overlap="1">';
+			panorama+='      <level width="2000" predecode="0" height="2000" preload="0"/>';
+			panorama+='      <level width="1000" predecode="0" height="1000" preload="0"/>';
+			panorama+='      <level width="500" predecode="1" height="500" preload="1"/>';
+			panorama+='      <preview color="0x808080" strip="1"/>';
+			panorama+='    </input>';
+			panorama+='    <view pannorth="0" fovmode="0">';
+			panorama+='      <start projection="4" pan="83.6424" fov="70" tilt="2.27534"/>';
+			panorama+='      <flyin projection="9" pan="0" fov="170" tilt="-90"/>';
+			panorama+='      <min fovpixel="1" pan="0" tilt="-90"/>';
+			panorama+='      <max fovstereographic="270" fovfisheye="360" pan="360" fov="70" tilt="90" scaletofit="1"/>';
+			panorama+='    </view>';
+			panorama+='    <userdata latitude="" info="" customnodeid="" datetime="18.02.2020 17:07" comment="" copyright="" longitude="" description="" title="" tags="tour|enfused" source="" heading="0" author="" nodeid="node33"/>';
+			panorama+='    <hotspots width="270" height="50" wordwrap="1">';
+			panorama+='      <label width="270" enabled="1" backgroundalpha="1" bordercolor="0x000000" background="1" textalpha="1" height="50" backgroundcolor="0xffffff" border="1" textcolor="0xff0000" borderradius="11" wordwrap="1" borderalpha="1"/>';
+			panorama+='      <polystyle backgroundalpha="0.25098" bordercolor="0xffe040" backgroundcolor="0xff1134" mode="0" handcursor="1" borderalpha="1"/>';
+			panorama+='    </hotspots>';
+			panorama+='    <media/>';
+			panorama+='    <transition zoomafterinfov="90" blendcolor="0x000000" zoomin="0" enabled="1" softedge="0" zoomafteroutfov="20" zoomoutpause="1" zoomout="0" zoomfov="20" type="crossdissolve" blendtime="1" zoomspeed="2"/>';
+			panorama+='    <autorotate enabled="1" speed="0.080" nodefilter="" delay="5.00" returntohorizon="0.000" startloaded="0" nodedelay="0.00" noderandom="1" useanimation="0"/>';
+			panorama+='    <animation animsequence="Animation01" syncanimationwithvideo="0" useinautorotation="0"/>';
+			panorama+='    <control simulatemass="1" lockedmouse="0" lockedwheel="0" dblclickfullscreen="1" invertwheel="0" lockedkeyboardzoom="0" rubberband="0" speedwheel="1" contextprojections="0" sensitivity="9" contextfullscreen="0" lockedkeyboard="0" invertcontrol="1" hideabout="1">';
+			panorama+='      <menulink text="&#1042;&#1080;&#1088;&#1090;&#1091;&#1072;&#1083;&#1100;&#1085;&#1099;&#1077; &#1090;&#1091;&#1088;&#1099; &#1080; &#1087;&#1072;&#1085;&#1086;&#1088;&#1072;&#1084;&#1099; &#1080;&#1085;&#1090;&#1077;&#1088;&#1100;&#1077;&#1088;&#1086;&#1074;" url="http://hi360v.com"/>';
+			panorama+='    </control>';
+			panorama+='  </panorama>';
+			panorama+='  <masternode>';
+			panorama+='    <userdata latitude="" info="" customnodeid="" datetime="" comment="" copyright="" longitude="" description="" title="" tags="" source="" heading="0" author="" nodeid="master"/>';
+			panorama+='  </masternode>';
+			panorama+='</tour>';
+			panorama+='';
+			pano.readConfigString(panorama);
+		</script>
+		<noscript>
+			<p><b>Please enable Javascript!</b></p>
+		</noscript>
+<!-- - - - - - - 8<- - - - - - cut here - - - - - 8<- - - - - - - --> 
+		<!-- Hack needed to hide the url bar on iOS 9, iPhone 5s --> 
+		<div style="width:1px;height:1px;"></div>
+	</body>
+</html>
