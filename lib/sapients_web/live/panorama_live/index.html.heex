@@ -1,0 +1,39 @@
+<h1>Listing Panoramas</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.panorama_index_path(@socket, :index)}>
+    <.live_component
+      module={SapientsWeb.PanoramaLive.FormComponent}
+      id={@panorama.id || :new}
+      title={@page_title}
+      action={@live_action}
+      panorama={@panorama}
+      user={@user}
+      return_to={Routes.panorama_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Url</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="panoramas">
+    <%= for panorama <- @panoramas do %>
+      <tr id={"panorama-#{panorama.id}"}>
+        <div class="flex space-x-5">
+          <a class="link" target="_blank" href={panorama.url}><%= panorama.url %></a>
+
+          <span><%= live_patch "Edit", to: Routes.panorama_index_path(@socket, :edit, panorama) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: panorama.id, data: [confirm: "Are you sure?"] %></span>
+        </div>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Panorama", to: Routes.panorama_index_path(@socket, :new) %></span>

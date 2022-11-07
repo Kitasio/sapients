@@ -13,9 +13,8 @@ defmodule SapientsWeb.ImageLive.FormComponent do
      |> assign(:changeset, changeset)
      |> assign(:user, user)
      |> allow_upload(:image,
-       accept: ~w(.jpg .jpeg .png .zip),
-       max_entries: 5,
-       max_file_size: 100_000_000
+       accept: ~w(.jpg .jpeg .png),
+       max_entries: 5
      )}
   end
 
@@ -51,49 +50,15 @@ defmodule SapientsWeb.ImageLive.FormComponent do
     bucket = Application.get_env(:sapients, :bucket)
 
     consume_uploaded_entries(socket, :image, fn meta, entry ->
-      if ext(entry) == "zip" do
-        unzip_file(meta.path)
-      else
-        filename = "#{entry.uuid}.#{ext(entry)}"
-        file = File.read!(meta.path)
+      filename = "#{entry.uuid}.#{ext(entry)}"
+      file = File.read!(meta.path)
 
-        ExAws.S3.put_object(bucket, filename, file)
-        |> ExAws.request!()
+      ExAws.S3.put_object(bucket, filename, file)
+      |> ExAws.request!()
 
-        image_url = Path.join(imagekit_url, filename)
-        {:ok, image_url}
-      end
+      image_url = Path.join(imagekit_url, filename)
+      {:ok, image_url}
     end)
-  end
-
-  def unzip_file(file) do
-    base_path =
-      if System.get_env("MIX_ENV") == "prod" do
-        [Application.app_dir(:sapients), "priv/static/panorama"] |> Path.join()
-      else
-        "priv/static/panorama"
-      end
-
-    zip_file = Unzip.LocalFile.open(file)
-    {:ok, unzip} = Unzip.new(zip_file)
-
-    file_entries = Unzip.list_entries(unzip)
-
-    for file_entry <- file_entries do
-      %Unzip.Entry{file_name: file_name} = file_entry
-      out_file_name = Path.join(base_path, file_name)
-      dir = Path.dirname(out_file_name)
-
-      if File.exists?(dir) do
-        if Path.extname(out_file_name) != "" do
-          Unzip.file_stream!(unzip, file_name)
-          |> Stream.into(File.stream!(out_file_name))
-          |> Stream.run()
-        end
-      else
-        File.mkdir_p!(dir)
-      end
-    end
   end
 
   def ext(entry) do

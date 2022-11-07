@@ -176,4 +176,58 @@ defmodule Sapients.MediaTest do
       assert %Ecto.Changeset{} = Media.change_image(image)
     end
   end
+
+  describe "panoramas" do
+    alias Sapients.Media.Panorama
+
+    import Sapients.MediaFixtures
+
+    @invalid_attrs %{url: nil}
+
+    test "list_panoramas/0 returns all panoramas" do
+      panorama = panorama_fixture()
+      assert Media.list_panoramas() == [panorama]
+    end
+
+    test "get_panorama!/1 returns the panorama with given id" do
+      panorama = panorama_fixture()
+      assert Media.get_panorama!(panorama.id) == panorama
+    end
+
+    test "create_panorama/1 with valid data creates a panorama" do
+      valid_attrs = %{url: "some url"}
+
+      assert {:ok, %Panorama{} = panorama} = Media.create_panorama(valid_attrs)
+      assert panorama.url == "some url"
+    end
+
+    test "create_panorama/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Media.create_panorama(@invalid_attrs)
+    end
+
+    test "update_panorama/2 with valid data updates the panorama" do
+      panorama = panorama_fixture()
+      update_attrs = %{url: "some updated url"}
+
+      assert {:ok, %Panorama{} = panorama} = Media.update_panorama(panorama, update_attrs)
+      assert panorama.url == "some updated url"
+    end
+
+    test "update_panorama/2 with invalid data returns error changeset" do
+      panorama = panorama_fixture()
+      assert {:error, %Ecto.Changeset{}} = Media.update_panorama(panorama, @invalid_attrs)
+      assert panorama == Media.get_panorama!(panorama.id)
+    end
+
+    test "delete_panorama/1 deletes the panorama" do
+      panorama = panorama_fixture()
+      assert {:ok, %Panorama{}} = Media.delete_panorama(panorama)
+      assert_raise Ecto.NoResultsError, fn -> Media.get_panorama!(panorama.id) end
+    end
+
+    test "change_panorama/1 returns a panorama changeset" do
+      panorama = panorama_fixture()
+      assert %Ecto.Changeset{} = Media.change_panorama(panorama)
+    end
+  end
 end

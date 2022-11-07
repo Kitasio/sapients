@@ -51,4 +51,18 @@ defmodule Sapients.MediaFixtures do
 
     image
   end
+
+  @doc """
+  Generate a panorama.
+  """
+  def panorama_fixture(attrs \\ %{}) do
+    {:ok, panorama} =
+      attrs
+      |> Enum.into(%{
+        url: "some url"
+      })
+      |> Sapients.Media.create_panorama()
+
+    panorama
+  end
 end

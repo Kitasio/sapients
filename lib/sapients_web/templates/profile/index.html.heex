@@ -2,6 +2,8 @@
     <h1 class="text-3xl font-medium">Profile page: <span class="font-thin"><%= @current_user.email %></span></h1>
 
     <%= link "Your uploaded images", to: Routes.image_index_path(@conn, :index), class: "text-xl link" %>
+    <br>
+    <%= link "Your panoramas", to: Routes.panorama_index_path(@conn, :index), class: "text-xl link" %>
 
     <div>
         <h2 class="text-4xl font-bold">Social media links</h2>

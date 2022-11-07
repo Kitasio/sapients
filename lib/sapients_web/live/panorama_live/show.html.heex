@@ -1,0 +1,26 @@
+<h1>Show Panorama</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.panorama_show_path(@socket, :show, @panorama)}>
+    <.live_component
+      module={SapientsWeb.PanoramaLive.FormComponent}
+      id={@panorama.id}
+      title={@page_title}
+      action={@live_action}
+      panorama={@panorama}
+      return_to={Routes.panorama_show_path(@socket, :show, @panorama)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @panorama.url %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.panorama_show_path(@socket, :edit, @panorama), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.panorama_index_path(@socket, :index) %></span>

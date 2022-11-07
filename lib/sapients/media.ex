@@ -369,4 +369,118 @@ defmodule Sapients.Media do
   def change_image(%Image{} = image, attrs \\ %{}) do
     Image.changeset(image, attrs)
   end
+
+  alias Sapients.Media.Panorama
+
+  @doc """
+  Returns the list of panoramas.
+
+  ## Examples
+
+      iex> list_panoramas()
+      [%Panorama{}, ...]
+
+  """
+  def list_panoramas do
+    Panorama
+    |> panoramas_desc()
+    |> Repo.all()
+  end
+
+  def list_user_panoramas(%Accounts.User{} = user) do
+    Panorama
+    |> user_panoramas(user)
+    |> panoramas_desc()
+    |> Repo.all()
+  end
+
+  defp user_panoramas(query, %Accounts.User{id: user_id}) do
+    from(p in query, where: p.user_id == ^user_id)
+  end
+
+  defp panoramas_desc(query) do
+    from(p in query, order_by: [desc: :id])
+  end
+
+  @doc """
+  Gets a single panorama.
+
+  Raises `Ecto.NoResultsError` if the Panorama does not exist.
+
+  ## Examples
+
+      iex> get_panorama!(123)
+      %Panorama{}
+
+      iex> get_panorama!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_panorama!(id), do: Repo.get!(Panorama, id)
+
+  @doc """
+  Creates a panorama.
+
+  ## Examples
+
+      iex> create_panorama(%{field: value})
+      {:ok, %Panorama{}}
+
+      iex> create_panorama(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_panorama(%Accounts.User{} = user, attrs \\ %{}) do
+    %Panorama{}
+    |> Panorama.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:user, user)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a panorama.
+
+  ## Examples
+
+      iex> update_panorama(panorama, %{field: new_value})
+      {:ok, %Panorama{}}
+
+      iex> update_panorama(panorama, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_panorama(%Panorama{} = panorama, attrs) do
+    panorama
+    |> Panorama.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a panorama.
+
+  ## Examples
+
+      iex> delete_panorama(panorama)
+      {:ok, %Panorama{}}
+
+      iex> delete_panorama(panorama)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_panorama(%Panorama{} = panorama) do
+    Repo.delete(panorama)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking panorama changes.
+
+  ## Examples
+
+      iex> change_panorama(panorama)
+      %Ecto.Changeset{data: %Panorama{}}
+
+  """
+  def change_panorama(%Panorama{} = panorama, attrs \\ %{}) do
+    Panorama.changeset(panorama, attrs)
+  end
 end
