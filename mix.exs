@@ -56,6 +56,7 @@ defmodule Sapients.MixProject do
       {:hackney, "~> 1.18"},
       {:sweet_xml, "~> 0.7.3"},
       {:httpoison, "~> 1.8"},
+      {:unzip, "~> 0.7.1"}
     ]
   end
 
@@ -71,7 +72,7 @@ defmodule Sapients.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"],
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
     ]
   end
 end
