@@ -15,7 +15,7 @@ defmodule SapientsWeb.PanoramaLive.FormComponent do
      |> allow_upload(:image,
        accept: ~w(.zip),
        max_entries: 5,
-       max_file_size: 100_000_000
+       max_file_size: 200_000_000
      )}
   end
 
