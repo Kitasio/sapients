@@ -13,14 +13,14 @@ module.exports = {
     'lg:col-span-2',
     'lg:col-span-3',
     {
-      pattern: /bg-(brick|sun|aqua|nothing|teal|navy|maroon|lime)-default/,
+      pattern: /bg-(pure|morning|wine|mountain|fall|ocean|desert|forest)-default/,
     },
     {
-      pattern: /text-(brick|sun|aqua|nothing|teal|navy|maroon|lime)-(primary|secondary|accent)/,
+      pattern: /text-(pure|morning|wine|mountain|fall|ocean|desert|forest)-(primary|secondary|accent)/,
       variants: ['hover', 'group-hover'],
     },
     {
-      pattern: /fill-(brick|sun|aqua|nothing|teal|navy|maroon|lime)-(tertiary|accent|secondary|primary)/,
+      pattern: /fill-(pure|morning|wine|mountain|fall|ocean|desert|forest)-(tertiary|accent|secondary|primary)/,
       variants: ['group-hover', 'lg'],
     },
   ],
@@ -32,62 +32,62 @@ module.exports = {
         ]
       },
       colors: {
-        brick: {
-          default: "#FF4937",
-          primary: "#231F20",
-          secondary: "#FFF",
-          tertiary: "#FAFF00",
-          accent: "#231F20",
+        pure: {
+          default: "#FFD4E1",
+          primary: "#1D5C5C",
+          secondary: "#164040",
+          tertiary: "#FA4141",
+          accent: "#1D5C5C",
         },
-        sun: {
-          default: "#FAFF00",
-          primary: "#FFF",
-          secondary: "#231F20",
-          tertiary: "#00FFFF",
-          accent: "#FFF",
+        morning: {
+          default: "#D7FFE0",
+          primary: "#635582",
+          secondary: "#373045",
+          tertiary: "#913651",
+          accent: "#635582",
         },
-        aqua: {
-          default: "#001AFF",
-          primary: "#FF0000",
-          secondary: "#FFF",
-          tertiary: "#00FFFF",
-          accent: "#FF0000",
+        wine: {
+          default: "#913651",
+          primary: "#C4EFFF",
+          secondary: "#FFB6C8",
+          tertiary: "#FAB641",
+          accent: "#C4EFFF",
         },
-        nothing: {
-          default: "#FFF",
-          primary: "#FAFF00",
-          secondary: "#231F20",
-          tertiary: "#00FFFF",
-          accent: "#FAFF00",
+        mountain: {
+          default: "#C4EFFF",
+          primary: "#3F4E2C",
+          secondary: "#39111D",
+          tertiary: "#913651",
+          accent: "#3F4E2C",
         },
-        teal: {
-          default: "#008080",
-          primary: "#FFF",
-          secondary: "#231F20",
-          tertiary: "#FAFF00",
-          accent: "#FFF",
+        fall: {
+          default: "#FAB641",
+          primary: "#913651",
+          secondary: "#39111D",
+          tertiary: "#404D30",
+          accent: "#913651",
         },
-        navy: {
-          default: "#000080",
-          primary: "#FFF",
-          secondary: "#231F20",
-          tertiary: "#FAFF00",
-          accent: "#FFF",
+        ocean: {
+          default: "#4B6CB7",
+          primary: "#D1F3FF",
+          secondary: "#091225",
+          tertiary: "#FFCB71",
+          accent: "#D1F3FF"
         },
-        maroon: {
-          default: "#800000",
-          primary: "#FFF",
-          secondary: "#231F20",
-          tertiary: "#00FFFF",
-          accent: "#FFF",
+        desert: {
+          default: "#E2C294",
+          primary: "#913651",
+          secondary: "#392F20",
+          tertiary: "#1D5C5C",
+          accent: "#913651"
         },
-        lime: {
-          default: "#00FF00",
-          primary: "#800000",
-          secondary: "#FFF",
-          tertiary: "#FAFF00",
-          accent: "#800000",
-        },
+        forest: {
+          default: "#9BE2AE",
+          primary: "#164040",
+          secondary: "#092323",
+          tertiary: "#A73A3A",
+          accent: "#164040"
+        }
       },
       animation: {
         'bounce-x': 'bounce-x 1s infinite'

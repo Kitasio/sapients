@@ -82,6 +82,11 @@ defmodule SapientsWeb.PanoramaLive.FormComponent do
           "http://localhost:4000/panorama"
         end
 
+      # create UUID folder and appends it to the base path
+      # uuid = Ecto.UUID.generate()
+      # base_path = [base_path, uuid] |> Path.join()
+      # File.mkdir_p!(base_path)
+
       filename =
         [base_path, entry.client_name |> String.split(".") |> List.first(), "index.html"]
         |> Path.join()
