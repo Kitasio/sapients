@@ -26,6 +26,7 @@ defmodule SapientsWeb.Router do
     get "/sapient/:username", PageController, :show
     get "/contact", ContactController, :index
     get "/about", AboutController, :index
+    get "/.well-known/nostr.json", NostrController, :index
   end
 
   # Other scopes may use custom stacks.
