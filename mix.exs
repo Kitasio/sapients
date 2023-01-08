@@ -56,7 +56,8 @@ defmodule Sapients.MixProject do
       {:hackney, "~> 1.18"},
       {:sweet_xml, "~> 0.7.3"},
       {:httpoison, "~> 1.8"},
-      {:unzip, "~> 0.7.1"}
+      {:unzip, "~> 0.7.1"},
+      {:bech32, "~> 1.0"}
     ]
   end
 
