@@ -1,9 +1,13 @@
 defmodule SapientsWeb.NostrView do
   use SapientsWeb, :view
 
-  def render("index.json", %{}) do
+  alias Sapients.Nostr
+
+  def render("index.json", params) do
+    %Nostr.NIP05{name: name, pubkey: pubkey} = params.nip05
+
     names = %{
-      langur: "npub1k0x9g3pavpte9ht3mcatedcgyv5005v8mpwwaam7q37a0m3zmguqsxlukk" |> npub_to_hex()
+      name => pubkey |> npub_to_hex()
     }
 
     %{

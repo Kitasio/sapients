@@ -1,0 +1,28 @@
+<h1>Listing Names</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Pubkey</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for nip05 <- @names do %>
+    <tr>
+      <td><%= nip05.name %></td>
+      <td><%= nip05.pubkey %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.nip05_path(@conn, :show, nip05) %></span>
+        <span><%= link "Edit", to: Routes.nip05_path(@conn, :edit, nip05) %></span>
+        <span><%= link "Delete", to: Routes.nip05_path(@conn, :delete, nip05), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Nip05", to: Routes.nip05_path(@conn, :new) %></span>

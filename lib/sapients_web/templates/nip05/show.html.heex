@@ -1,0 +1,18 @@
+<h1>Show Nip05</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @nip05.name %>
+  </li>
+
+  <li>
+    <strong>Pubkey:</strong>
+    <%= @nip05.pubkey %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.nip05_path(@conn, :edit, @nip05) %></span> |
+<span><%= link "Back", to: Routes.nip05_path(@conn, :index) %></span>

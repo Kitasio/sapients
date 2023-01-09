@@ -1,0 +1,5 @@
+<h1>Edit Nip05</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.nip05_path(@conn, :update, @nip05)) %>
+
+<span><%= link "Back", to: Routes.nip05_path(@conn, :index) %></span>

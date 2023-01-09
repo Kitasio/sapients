@@ -69,6 +69,7 @@ defmodule SapientsWeb.Router do
 
     live "/", AdminLive
     resources "/invite_tokens", TokenController
+    resources "/names", NIP05Controller
   end
 
   scope "/", SapientsWeb do
